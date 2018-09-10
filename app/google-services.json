@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "990822985855",
+    "firebase_url": "https://grip-da6b3.firebaseio.com",
+    "project_id": "grip-da6b3",
+    "storage_bucket": "grip-da6b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990822985855:android:862cbff0b9d605d6",
+        "android_client_info": {
+          "package_name": "com.herokuapp.jordan_chau.grip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990822985855-0ni3f7ps1q8ov56k88j6vosr09035kld.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1VTg6KU6iOUMu9-srfxGrkiRlAakUZRs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
