@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Timber.tag("LoginActivity");
+        //TODO: hide action bar by customizing FirebaseUI
 
         createSignInIntent();
     }
@@ -49,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setAvailableProviders(providers)
+                        .setLogo(R.drawable.ic_grip_logo)
+                        .setTheme(R.style.AppTheme)
                         .build(),
                 RC_SIGN_IN);
     }
@@ -75,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    //delete function
     public void delete() {
         // [START auth_fui_delete]
         AuthUI.getInstance()
@@ -88,21 +92,7 @@ public class LoginActivity extends AppCompatActivity {
         // [END auth_fui_delete]
     }
 
-    public void themeAndLogo() {
-        List<AuthUI.IdpConfig> providers = Collections.emptyList();
-
-        // [START auth_fui_theme_logo]
-        startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setAvailableProviders(providers)
-                        //.setLogo(R.drawable.my_great_logo)      // Set logo drawable
-                        .setTheme(R.style.AppTheme)      // Set theme
-                        .build(),
-                RC_SIGN_IN);
-        // [END auth_fui_theme_logo]
-    }
-
+    /* to be implemented in the future
     public void privacyAndTerms() {
         List<AuthUI.IdpConfig> providers = Collections.emptyList();
         // [START auth_fui_pp_tos]
@@ -116,5 +106,5 @@ public class LoginActivity extends AppCompatActivity {
                         .build(),
                 RC_SIGN_IN);
         // [END auth_fui_pp_tos]
-    }
+    } */
 }

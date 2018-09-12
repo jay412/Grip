@@ -37,6 +37,8 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
