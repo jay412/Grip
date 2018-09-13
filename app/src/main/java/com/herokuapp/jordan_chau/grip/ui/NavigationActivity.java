@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -23,14 +24,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.herokuapp.jordan_chau.grip.adapters.BottomNavBarAdapter;
 import com.herokuapp.jordan_chau.grip.adapters.NoSwipePager;
 import com.herokuapp.jordan_chau.grip.R;
+import com.herokuapp.jordan_chau.grip.fragments.CreateNewItemDialogFragment;
 import com.herokuapp.jordan_chau.grip.fragments.HistoryFragment;
 import com.herokuapp.jordan_chau.grip.fragments.NewBillFragment;
 import com.herokuapp.jordan_chau.grip.fragments.SettingsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
-public class NavigationActivity extends AppCompatActivity {
+public class NavigationActivity extends AppCompatActivity implements CreateNewItemDialogFragment.CreateNewItemDialogListener{
     @BindView(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
     @BindView(R.id.view_pager) NoSwipePager mViewPager;
     @BindView(R.id.tv_title) TextView mTitle;
@@ -44,6 +47,8 @@ public class NavigationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         ButterKnife.bind(this);
+        Timber.plant(new Timber.DebugTree());
+        Timber.tag("NavigationActivity");
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
@@ -69,6 +74,7 @@ public class NavigationActivity extends AppCompatActivity {
         mPagerAdapter.addFragments(settingsFragment);
 
         mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.setCurrentItem(1);
 
         setUpBottomNavigationBar();
     }
@@ -146,23 +152,32 @@ public class NavigationActivity extends AppCompatActivity {
                 if (!wasSelected) {
                     mViewPager.setCurrentItem(position);
 
-                    //TODO switch titles accordingly
                     switch(position) {
                         case 0:
                             mTitle.setText(getResources().getString(R.string.title_history));
+                            break;
                         case 1:
                             mTitle.setText(getResources().getString(R.string.title_new_bill));
+                            break;
                         case 2:
                             mTitle.setText(getResources().getString(R.string.title_settings));
+                            break;
                     }
                 }
                 return true;
             }
         });
-        bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
+        /* bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
             @Override public void onPositionChange(int y) {
                 // Manage the new y position
             }
-        });
+        }); */
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog, String quantity, String name, String price) {
+        //TODO make recyclerview adapter for new bill page, add and set up adapter & RV, create receipt item here and add to RV
+        //TODO send data from dialog click to fragment and refresh fragment
+        Toast.makeText(this, "Added Item!", Toast.LENGTH_LONG).show();
     }
 }

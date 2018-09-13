@@ -22,7 +22,7 @@ public class ReceiptCardAdapter extends RecyclerView.Adapter<ReceiptCardAdapter.
     public ReceiptCardAdapter(ReceiptItemClickListener listener) {
         //mRecipes = recipes;
         //mNumberItems = recipes.size();
-        mNumberItems = 3;
+        mNumberItems = 6;
         mOnClickListener = listener;
     }
 

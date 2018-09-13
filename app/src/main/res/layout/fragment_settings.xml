@@ -143,6 +143,8 @@
         app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/setting_about"
-        android:layout_marginTop="60dp"/>
+        android:layout_marginTop="60dp"
+        style="@style/buttonStyle"
+        android:drawableEnd="@drawable/ic_log_out"/>
 
 </android.support.constraint.ConstraintLayout>

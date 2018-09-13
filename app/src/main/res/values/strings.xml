@@ -10,6 +10,12 @@
     <string name="title_new_bill">New Bill</string>
     <string name="calculate_total">Calculate Total</string>
     <string name="num_ppl_sharing">Number of People Sharing: </string>
+    <string name="add_new_item">Create New Item</string>
+    <string name="quantity">Quantity</string>
+    <string name="name">Name</string>
+    <string name="price">Price</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
 
 
     <!-- settings page -->
@@ -20,7 +26,7 @@
     <string name="setting_social">Social</string>
     <string name="setting_notifications">Notifications</string>
     <string name="setting_about">About</string>
-    <string name="logout">Logout</string>
+    <string name="logout">Log out</string>
 
     <!-- hint strings -->
     <string name="hint_date">09/13/2018</string>
