@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.herokuapp.jordan_chau.grip.R;
+import com.herokuapp.jordan_chau.grip.adapters.ReceiptCardAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends Fragment implements ReceiptCardAdapter.ReceiptItemClickListener{
     @BindView(R.id.rv_receipt_cards) RecyclerView mReceiptList;
+    private ReceiptCardAdapter mAdapter;
 
     @Nullable
     @Override
@@ -31,6 +33,14 @@ public class HistoryFragment extends Fragment {
             //mRecipeList.setAdapter(mAdapter);
         }
 
+        mAdapter = new ReceiptCardAdapter(this);
+        mReceiptList.setAdapter(mAdapter);
+
         return rootView;
+    }
+
+    @Override
+    public void onRecipeItemClicked(int clickedItemIndex) {
+
     }
 }

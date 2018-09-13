@@ -1,11 +1,13 @@
 package com.herokuapp.jordan_chau.grip.adapters;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.herokuapp.jordan_chau.grip.R;
@@ -20,6 +22,7 @@ public class ReceiptCardAdapter extends RecyclerView.Adapter<ReceiptCardAdapter.
     public ReceiptCardAdapter(ReceiptItemClickListener listener) {
         //mRecipes = recipes;
         //mNumberItems = recipes.size();
+        mNumberItems = 3;
         mOnClickListener = listener;
     }
 
@@ -41,8 +44,12 @@ public class ReceiptCardAdapter extends RecyclerView.Adapter<ReceiptCardAdapter.
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
         //String currentRecipeName = mRecipes.get(position).getName();
         //int currentRecipeServings = mRecipes.get(position).getServings();
+        Image currentReceiptImage = null;
+        String currentReceiptDate = "09/13/2018";
+        String currentReceiptLabel = "Japanese Food";
+        double currentReceiptTotal = 1350.25;
 
-        //holder.bind(currentRecipeName, Integer.toString(currentRecipeServings));
+        holder.bind(currentReceiptImage, currentReceiptDate, currentReceiptLabel, Double.toString(currentReceiptTotal));
     }
 
     @Override
@@ -53,19 +60,25 @@ public class ReceiptCardAdapter extends RecyclerView.Adapter<ReceiptCardAdapter.
 
     class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView recipeNameView, servingsView;
+        ImageView receiptImage;
+        TextView receiptDate, receiptLabel, receiptTotal;
 
         CardViewHolder(View itemView) {
             super(itemView);
 
-            //recipeNameView = itemView.findViewById(R.id.tv_recipe_name);
-            //servingsView = itemView.findViewById(R.id.tv_servings);
+            receiptImage = itemView.findViewById(R.id.iv_receipt_image);
+            receiptDate = itemView.findViewById(R.id.tv_receipt_date);
+            receiptLabel = itemView.findViewById(R.id.tv_receipt_label);
+            receiptTotal = itemView.findViewById(R.id.tv_receipt_total);
             itemView.setOnClickListener(this);
         }
 
-        void bind(String recipeName, String servings) {
-            recipeNameView.setText(recipeName);
-            servingsView.setText("Servings: " + servings);
+        void bind(Image rImage, String rDate, String rLabel, String rTotal) {
+            //TODO change image
+            receiptImage.setBackground(null);
+            receiptDate.setText(rDate);
+            receiptLabel.setText(rLabel);
+            receiptTotal.setText("$" + rTotal);
         }
 
         @Override
