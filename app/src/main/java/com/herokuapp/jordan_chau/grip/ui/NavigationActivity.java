@@ -1,17 +1,15 @@
-package com.herokuapp.jordan_chau.grip;
+package com.herokuapp.jordan_chau.grip.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,47 +20,30 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.herokuapp.jordan_chau.grip.adapters.BottomNavBarAdapter;
+import com.herokuapp.jordan_chau.grip.adapters.NoSwipePager;
+import com.herokuapp.jordan_chau.grip.R;
+import com.herokuapp.jordan_chau.grip.fragments.HistoryFragment;
+import com.herokuapp.jordan_chau.grip.fragments.NewBillFragment;
+import com.herokuapp.jordan_chau.grip.fragments.SettingsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class NavigationActivity extends AppCompatActivity {
     @BindView(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
+    @BindView(R.id.view_pager) NoSwipePager mViewPager;
+    @BindView(R.id.tv_title) TextView mTitle;
+    private BottomNavBarAdapter mPagerAdapter;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private String mUsername;
-
-    private TextView mTextMessage;
-
-   /* private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
-            }
-            return false;
-        }
-    }; */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         ButterKnife.bind(this);
-
-        //mTextMessage = findViewById(R.id.message);
-        //BottomNavigationView navigation = findViewById(R.id.navigation);
-        //navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
@@ -74,6 +55,20 @@ public class NavigationActivity extends AppCompatActivity {
             mUsername = mFirebaseUser.getDisplayName();
             //mTextMessage.setText("Hello " + mUsername);
         }
+
+        //TODO load default new bill page after log in
+        mViewPager.setPagingEnabled(false);
+        mPagerAdapter = new BottomNavBarAdapter(getSupportFragmentManager());
+
+        HistoryFragment historyFragment = new HistoryFragment();
+        NewBillFragment newBillFragment = new NewBillFragment();
+        SettingsFragment settingsFragment = new SettingsFragment();
+        //fragment.setArguments(bundle);
+        mPagerAdapter.addFragments(historyFragment);
+        mPagerAdapter.addFragments(newBillFragment);
+        mPagerAdapter.addFragments(settingsFragment);
+
+        mViewPager.setAdapter(mPagerAdapter);
 
         setUpBottomNavigationBar();
     }
@@ -92,7 +87,7 @@ public class NavigationActivity extends AppCompatActivity {
         bottomNavigation.addItem(mSettings);
 
         //set background color
-        bottomNavigation.setDefaultBackgroundColor(fetchColor(R.color.colorAccent));
+        bottomNavigation.setDefaultBackgroundColor(fetchColor(R.color.colorPrimaryDark));
 
         // Disable the translation inside the CoordinatorLayout
         //bottomNavigation.setBehaviorTranslationEnabled(false);
@@ -101,7 +96,7 @@ public class NavigationActivity extends AppCompatActivity {
         //bottomNavigation.manageFloatingActionButtonBehavior(floatingActionButton);
 
         // Change colors
-        bottomNavigation.setAccentColor(fetchColor(R.color.colorPrimary));
+        bottomNavigation.setAccentColor(fetchColor(R.color.colorAccent));
         bottomNavigation.setInactiveColor(fetchColor(R.color.white));
 
         // Force to tint the drawable (useful for font with icon for example)
@@ -147,7 +142,20 @@ public class NavigationActivity extends AppCompatActivity {
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
-                // Do something cool here...
+                //switch fragments based on navigation tab selection
+                if (!wasSelected) {
+                    mViewPager.setCurrentItem(position);
+
+                    //TODO switch titles accordingly
+                    switch(position) {
+                        case 0:
+                            mTitle.setText(getResources().getString(R.string.title_history));
+                        case 1:
+                            mTitle.setText(getResources().getString(R.string.title_new_bill));
+                        case 2:
+                            mTitle.setText(getResources().getString(R.string.title_settings));
+                    }
+                }
                 return true;
             }
         });
@@ -156,34 +164,5 @@ public class NavigationActivity extends AppCompatActivity {
                 // Manage the new y position
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_sign_out, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    public void signOut(final Context c) {
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(c, "You have been signed out.", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(c, LoginActivity.class));
-                        finish();
-                    }
-                });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.option_sign_out:
-                signOut(this);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 }

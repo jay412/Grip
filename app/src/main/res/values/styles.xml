@@ -19,9 +19,9 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="android:colorBackground">@color/colorPrimaryDark</item>
+        <item name="android:colorBackground">@color/colorPrimary</item>
         <item name="android:colorForeground">@color/colorPrimaryDark</item>
-
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="titleStyle">
@@ -30,8 +30,9 @@
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_gravity">center</item>
     </style>
+    <!-- TODO create button style -->
 </resources>
