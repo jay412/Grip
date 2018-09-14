@@ -1,6 +1,11 @@
 package com.herokuapp.jordan_chau.grip.fragments;
 
+import android.content.Intent;
+import android.content.pm.FeatureInfo;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.herokuapp.jordan_chau.grip.R;
@@ -28,7 +34,11 @@ import timber.log.Timber;
 public class NewBillFragment extends Fragment implements NavigationActivity.CreateNewItemCallback, BillitemAdapter.BillItemClickListener{
     @BindView(R.id.fab_add_new_item) FloatingActionButton mAddItem;
     @BindView(R.id.rv_item_list) RecyclerView mItemList;
+    @BindView(R.id.fab_take_picture) FloatingActionButton mTakePicture;
+    @BindView(R.id.iv_receipt_image) ImageView mReceiptImage;
     private BillitemAdapter mAdapter;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int RESULT_OK = -1;
 
     @Nullable
     @Override
@@ -40,18 +50,9 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
         mItemList.setLayoutManager(layoutManager);
         mItemList.setHasFixedSize(true);
 
-        /*Bundle b = getArguments();
-        if(b == null) {
-            //nothing was added
-        }
-        else { */
-            //step arraylist
-            //ReceiptItem newItem = b.getParcelable("item");
-
             //TODO remove this?
             mAdapter = new BillitemAdapter(new ArrayList<ReceiptItem>(), this);
             mItemList.setAdapter(mAdapter);
-        //}
 
         setUpButtons();
        return rootView;
@@ -63,6 +64,23 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
         dialog.show(getActivity().getSupportFragmentManager(), "CreateNewItemDialogFragment");
     }
 
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            //TODO save image here?
+            mReceiptImage.setImageBitmap(imageBitmap);
+        }
+    }
+
     private void setUpButtons(){
         mAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +88,19 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
                 showNoticeDialog();
             }
         });
+
+        PackageManager pm = getActivity().getPackageManager();
+        final boolean deviceHasCamera = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
+        if(!deviceHasCamera) {
+            mTakePicture.setEnabled(false);
+        } else {
+            mTakePicture.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dispatchTakePictureIntent();
+                }
+            });
+        }
     }
 
     @Override

@@ -73,10 +73,10 @@
         android:id="@+id/iv_receipt_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="32dp"
-        app:layout_constraintBottom_toBottomOf="@+id/fab_take_picture"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/fab_take_picture"
+        app:layout_constraintTop_toTopOf="@+id/fab_take_picture"
         app:srcCompat="@android:drawable/ic_menu_myplaces" />
 
     <TextView
