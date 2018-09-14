@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.herokuapp.jordan_chau.grip.R;
 
 public class ReceiptCardAdapter extends RecyclerView.Adapter<ReceiptCardAdapter.CardViewHolder>{
-    private static final String TAG = ReceiptCardAdapter.class.getSimpleName();
+    //private static final String TAG = BillitemAdapter.class.getSimpleName();
 
     private int mNumberItems;
     //private ArrayList<Recipe> mRecipes;

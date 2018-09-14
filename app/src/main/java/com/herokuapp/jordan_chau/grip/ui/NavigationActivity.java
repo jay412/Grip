@@ -28,6 +28,8 @@ import com.herokuapp.jordan_chau.grip.fragments.CreateNewItemDialogFragment;
 import com.herokuapp.jordan_chau.grip.fragments.HistoryFragment;
 import com.herokuapp.jordan_chau.grip.fragments.NewBillFragment;
 import com.herokuapp.jordan_chau.grip.fragments.SettingsFragment;
+import com.herokuapp.jordan_chau.grip.model.Receipt;
+import com.herokuapp.jordan_chau.grip.model.ReceiptItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,7 +63,6 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
             //mTextMessage.setText("Hello " + mUsername);
         }
 
-        //TODO load default new bill page after log in
         mViewPager.setPagingEnabled(false);
         mPagerAdapter = new BottomNavBarAdapter(getSupportFragmentManager());
 
@@ -139,10 +140,6 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
                 .build();
         bottomNavigation.setNotification(notification, 1);
         */
-        // Enable / disable item & set disable color
-        //bottomNavigation.enableItemAtPosition(2);
-        //bottomNavigation.disableItemAtPosition(2);
-        //bottomNavigation.setItemDisableColor(Color.parseColor("#3A000000"));
 
         // Set listeners
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
@@ -178,6 +175,30 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
     public void onDialogPositiveClick(DialogFragment dialog, String quantity, String name, String price) {
         //TODO make recyclerview adapter for new bill page, add and set up adapter & RV, create receipt item here and add to RV
         //TODO send data from dialog click to fragment and refresh fragment
-        Toast.makeText(this, "Added Item!", Toast.LENGTH_LONG).show();
+
+        if (!quantity.equals("") && !name.equals("") && !price.equals("")) {
+            Toast.makeText(this, "Quantity is: " + quantity + " Name is: " + name + " Price is: " + price, Toast.LENGTH_LONG).show();
+            ReceiptItem createdItem = new ReceiptItem(Integer.valueOf(quantity), name, Double.valueOf(price));
+
+        /*Bundle bundle = new Bundle();
+        bundle.putParcelable("item", createdItem);
+
+        NewBillFragment newBillFragment = new NewBillFragment();
+        newBillFragment.setArguments(bundle);
+
+        mPagerAdapter.replaceFragment(1, newBillFragment);
+        mPagerAdapter.notifyDataSetChanged(); */
+
+            //TODO: check why createdItem might be null
+            //CreateNewItemCallback callback = (CreateNewItemCallback) mPagerAdapter.getItem(1);
+            //callback.receiveNewItemData(createdItem);
+        } else {
+            Toast.makeText(this, "Check fields and try again.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public interface CreateNewItemCallback {
+        void receiveNewItemData(ReceiptItem createdItem);
+        //public void onDialogNegativeClick(DialogFragment dialog);
     }
 }

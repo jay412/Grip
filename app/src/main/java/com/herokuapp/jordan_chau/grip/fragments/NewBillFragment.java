@@ -6,18 +6,28 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.herokuapp.jordan_chau.grip.R;
+import com.herokuapp.jordan_chau.grip.adapters.BillitemAdapter;
+import com.herokuapp.jordan_chau.grip.model.Receipt;
+import com.herokuapp.jordan_chau.grip.model.ReceiptItem;
+import com.herokuapp.jordan_chau.grip.ui.NavigationActivity;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NewBillFragment extends Fragment{
+public class NewBillFragment extends Fragment implements NavigationActivity.CreateNewItemCallback, BillitemAdapter.BillItemClickListener{
     @BindView(R.id.fab_add_new_item) FloatingActionButton mAddItem;
+    @BindView(R.id.rv_item_list) RecyclerView mItemList;
+    private BillitemAdapter mAdapter;
 
     @Nullable
     @Override
@@ -25,8 +35,24 @@ public class NewBillFragment extends Fragment{
        View rootView = inflater.inflate(R.layout.fragment_new_bill, container, false);
         ButterKnife.bind(this, rootView);
 
-        setUpButtons();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        mItemList.setLayoutManager(layoutManager);
+        mItemList.setHasFixedSize(true);
 
+        /*Bundle b = getArguments();
+        if(b == null) {
+            //nothing was added
+        }
+        else { */
+            //step arraylist
+            //ReceiptItem newItem = b.getParcelable("item");
+
+            //TODO fix adapter and RV and add data from callback
+            mAdapter = new BillitemAdapter(new ArrayList<ReceiptItem>(), this);
+            mItemList.setAdapter(mAdapter);
+        //}
+
+        setUpButtons();
        return rootView;
     }
 
@@ -43,5 +69,16 @@ public class NewBillFragment extends Fragment{
                 showNoticeDialog();
             }
         });
+    }
+
+    @Override
+    public void receiveNewItemData(ReceiptItem createdItem) {
+        mAdapter.addItem(createdItem);
+        mAdapter.notifyItemInserted(mAdapter.getItemCount() - 1);
+    }
+
+    @Override
+    public void onBillItemClicked(int clickedItemIndex) {
+        //TODO delete item when clicked
     }
 }

@@ -17,6 +17,10 @@ public class BottomNavBarAdapter extends SmartFragmentStatePagerAdapter {
         fragments.add(fragment);
     }
 
+    public void replaceFragment(int position, Fragment fragment) {
+        fragments.set(position, fragment);
+    }
+
     @Override
     public Fragment getItem(int position) {
         return fragments.get(position);
