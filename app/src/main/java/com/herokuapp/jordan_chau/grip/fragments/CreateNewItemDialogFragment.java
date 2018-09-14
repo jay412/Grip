@@ -74,7 +74,9 @@ public class CreateNewItemDialogFragment extends DialogFragment {
 
     /* The activity that creates an instance of this dialog fragment must
      * implement this interface in order to receive event callbacks.
-     * Each method passes the DialogFragment in case the host needs to query it. */
+     * Each method passes the DialogFragment in case the host needs to query it.
+     *
+     * This works*/
     public interface CreateNewItemDialogListener {
         void onDialogPositiveClick(DialogFragment dialog, String quantity, String name, String price);
         //public void onDialogNegativeClick(DialogFragment dialog);

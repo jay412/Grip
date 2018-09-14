@@ -30,6 +30,7 @@
 
     <!-- hint strings -->
     <string name="hint_date">09/13/2018</string>
+    <string name="hint_quantity">20</string>
     <string name="hint_label">Japanese Food</string>
     <string name="hint_total">$1350.00</string>
 </resources>

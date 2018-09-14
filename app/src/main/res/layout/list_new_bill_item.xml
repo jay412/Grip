@@ -2,13 +2,15 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp">
 
     <TextView
         android:id="@+id/tv_ri_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hint_date"/>
+        android:text="@string/hint_quantity"/>
 
     <TextView
         android:id="@+id/tv_ri_label"

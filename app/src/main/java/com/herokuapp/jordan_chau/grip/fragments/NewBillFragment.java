@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class NewBillFragment extends Fragment implements NavigationActivity.CreateNewItemCallback, BillitemAdapter.BillItemClickListener{
     @BindView(R.id.fab_add_new_item) FloatingActionButton mAddItem;
@@ -47,7 +48,7 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
             //step arraylist
             //ReceiptItem newItem = b.getParcelable("item");
 
-            //TODO fix adapter and RV and add data from callback
+            //TODO remove this?
             mAdapter = new BillitemAdapter(new ArrayList<ReceiptItem>(), this);
             mItemList.setAdapter(mAdapter);
         //}
@@ -73,8 +74,16 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
 
     @Override
     public void receiveNewItemData(ReceiptItem createdItem) {
-        mAdapter.addItem(createdItem);
-        mAdapter.notifyItemInserted(mAdapter.getItemCount() - 1);
+        if(mAdapter != null) {
+            mAdapter.addItem(createdItem);
+            mAdapter.notifyItemInserted(mAdapter.getItemCount() - 1);
+        } else {
+            mAdapter = new BillitemAdapter(new ArrayList<ReceiptItem>(), this);
+            //why is adapter still null?
+            mItemList.setAdapter(mAdapter);
+            mAdapter.addItem(createdItem);
+            mAdapter.notifyItemInserted(mAdapter.getItemCount() - 1);
+        }
     }
 
     @Override

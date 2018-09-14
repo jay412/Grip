@@ -96,12 +96,6 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
         //set background color
         bottomNavigation.setDefaultBackgroundColor(fetchColor(R.color.colorPrimaryDark));
 
-        // Disable the translation inside the CoordinatorLayout
-        //bottomNavigation.setBehaviorTranslationEnabled(false);
-
-        // Enable the translation of the FloatingActionButton
-        //bottomNavigation.manageFloatingActionButtonBehavior(floatingActionButton);
-
         // Change colors
         bottomNavigation.setAccentColor(fetchColor(R.color.colorAccent));
         bottomNavigation.setInactiveColor(fetchColor(R.color.white));
@@ -109,6 +103,10 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
         // Force to tint the drawable (useful for font with icon for example)
         bottomNavigation.setForceTint(true);
 
+        //don't hide on scroll
+        bottomNavigation.setBehaviorTranslationEnabled(false);
+
+        //TODO explore this later
         // Display color under navigation bar (API 21+)
         // Don't forget these lines in your style-v21
         // <item name="android:windowTranslucentNavigation">true</item>
@@ -119,9 +117,6 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
         //bottomNavigation.setTitleState(AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE);
         //bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
         //bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_HIDE);
-
-        // Use colored navigation with circle reveal effect
-        //bottomNavigation.setColored(true);
 
         // Set current item programmatically - set to New Bill tab
         bottomNavigation.setCurrentItem(1);
@@ -164,6 +159,7 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
                 return true;
             }
         });
+        //TODO explore this later
         /* bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
             @Override public void onPositionChange(int y) {
                 // Manage the new y position
@@ -177,8 +173,9 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
         //TODO send data from dialog click to fragment and refresh fragment
 
         if (!quantity.equals("") && !name.equals("") && !price.equals("")) {
-            Toast.makeText(this, "Quantity is: " + quantity + " Name is: " + name + " Price is: " + price, Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Quantity is: " + quantity + " Name is: " + name + " Price is: " + price, Toast.LENGTH_LONG).show();
             ReceiptItem createdItem = new ReceiptItem(Integer.valueOf(quantity), name, Double.valueOf(price));
+            Toast.makeText(this, "Quantity is: " + createdItem.getQuantity() + " Name is: " + createdItem.getName() + " Price is: " + createdItem.getPrice(), Toast.LENGTH_LONG).show();
 
         /*Bundle bundle = new Bundle();
         bundle.putParcelable("item", createdItem);
@@ -190,8 +187,8 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
         mPagerAdapter.notifyDataSetChanged(); */
 
             //TODO: check why createdItem might be null
-            //CreateNewItemCallback callback = (CreateNewItemCallback) mPagerAdapter.getItem(1);
-            //callback.receiveNewItemData(createdItem);
+            CreateNewItemCallback callback = (CreateNewItemCallback) mPagerAdapter.getItem(1);
+            callback.receiveNewItemData(createdItem);
         } else {
             Toast.makeText(this, "Check fields and try again.", Toast.LENGTH_LONG).show();
         }
