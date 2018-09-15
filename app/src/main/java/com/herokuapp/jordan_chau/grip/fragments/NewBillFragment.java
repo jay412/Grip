@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
     @BindView(R.id.rv_item_list) RecyclerView mItemList;
     @BindView(R.id.fab_take_picture) FloatingActionButton mTakePicture;
     @BindView(R.id.iv_receipt_image) ImageView mReceiptImage;
+    @BindView(R.id.btn_calculate_total) Button mCalculateTotal;
     private BillitemAdapter mAdapter;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int RESULT_OK = -1;
@@ -82,6 +84,7 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
     }
 
     private void setUpButtons(){
+        //add item fab listener
         mAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +92,7 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
             }
         });
 
+        //camera fab listener
         PackageManager pm = getActivity().getPackageManager();
         final boolean deviceHasCamera = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
         if(!deviceHasCamera) {
@@ -101,6 +105,14 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
                 }
             });
         }
+
+        //calculate total button listener
+        mCalculateTotal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO implement
+            }
+        });
     }
 
     @Override

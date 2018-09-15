@@ -1,34 +1,26 @@
 package com.herokuapp.jordan_chau.grip.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
-import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.herokuapp.jordan_chau.grip.R;
 import com.herokuapp.jordan_chau.grip.adapters.BottomNavBarAdapter;
 import com.herokuapp.jordan_chau.grip.adapters.NoSwipePager;
-import com.herokuapp.jordan_chau.grip.R;
 import com.herokuapp.jordan_chau.grip.fragments.CreateNewItemDialogFragment;
 import com.herokuapp.jordan_chau.grip.fragments.HistoryFragment;
 import com.herokuapp.jordan_chau.grip.fragments.NewBillFragment;
 import com.herokuapp.jordan_chau.grip.fragments.SettingsFragment;
-import com.herokuapp.jordan_chau.grip.model.Receipt;
 import com.herokuapp.jordan_chau.grip.model.ReceiptItem;
 
 import butterknife.BindView;
@@ -39,10 +31,10 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
     @BindView(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
     @BindView(R.id.view_pager) NoSwipePager mViewPager;
     @BindView(R.id.tv_title) TextView mTitle;
+    @BindView(R.id.coordinator) CoordinatorLayout mLayout;
     private BottomNavBarAdapter mPagerAdapter;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
-    private String mUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +51,6 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
             startActivity(new Intent(this, LoginActivity.class));
             finish();
         } else {
-            mUsername = mFirebaseUser.getDisplayName();
-            //mTextMessage.setText("Hello " + mUsername);
-        }
 
         mViewPager.setPagingEnabled(false);
         mPagerAdapter = new BottomNavBarAdapter(getSupportFragmentManager());
@@ -69,7 +58,7 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
         HistoryFragment historyFragment = new HistoryFragment();
         NewBillFragment newBillFragment = new NewBillFragment();
         SettingsFragment settingsFragment = new SettingsFragment();
-        //fragment.setArguments(bundle);
+
         mPagerAdapter.addFragments(historyFragment);
         mPagerAdapter.addFragments(newBillFragment);
         mPagerAdapter.addFragments(settingsFragment);
@@ -78,6 +67,7 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
         mViewPager.setCurrentItem(1);
 
         setUpBottomNavigationBar();
+        }
     }
 
     private int fetchColor(@ColorRes int color) {
@@ -175,27 +165,25 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
         if (!quantity.equals("") && !name.equals("") && !price.equals("")) {
             //Toast.makeText(this, "Quantity is: " + quantity + " Name is: " + name + " Price is: " + price, Toast.LENGTH_LONG).show();
             ReceiptItem createdItem = new ReceiptItem(Integer.valueOf(quantity), name, Double.valueOf(price));
-            Toast.makeText(this, "Quantity is: " + createdItem.getQuantity() + " Name is: " + createdItem.getName() + " Price is: " + createdItem.getPrice(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Quantity is: " + createdItem.getQuantity() + " Name is: " + createdItem.getName() + " Price is: " + createdItem.getPrice(), Toast.LENGTH_LONG).show();
 
-        /*Bundle bundle = new Bundle();
-        bundle.putParcelable("item", createdItem);
-
-        NewBillFragment newBillFragment = new NewBillFragment();
-        newBillFragment.setArguments(bundle);
-
-        mPagerAdapter.replaceFragment(1, newBillFragment);
-        mPagerAdapter.notifyDataSetChanged(); */
+            Snackbar.make(mLayout, "Quantity is: " + createdItem.getQuantity() + " Name is: " + createdItem.getName() + " Price is: " + createdItem.getPrice(), Snackbar.LENGTH_SHORT).show();
 
             //TODO: check why createdItem might be null
             CreateNewItemCallback callback = (CreateNewItemCallback) mPagerAdapter.getItem(1);
             callback.receiveNewItemData(createdItem);
         } else {
-            Toast.makeText(this, "Check fields and try again.", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Check fields and try again.", Toast.LENGTH_LONG).show();
+            Snackbar.make(mLayout, "Check fields and try again.", Snackbar.LENGTH_SHORT).show();
         }
     }
 
     public interface CreateNewItemCallback {
         void receiveNewItemData(ReceiptItem createdItem);
         //public void onDialogNegativeClick(DialogFragment dialog);
+    }
+
+    public CoordinatorLayout getLayout(){
+        return mLayout;
     }
 }

@@ -33,6 +33,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.3'
     //implementation 'com.facebook.android:facebook-android-sdk:4.36.0'
     //implementation 'com.twitter.sdk.android:twitter-core:3.2.0'
+    implementation 'com.google.firebase:firebase-database:16.0.2'
 
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'

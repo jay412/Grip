@@ -11,18 +11,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.herokuapp.jordan_chau.grip.R;
+import com.herokuapp.jordan_chau.grip.model.ReceiptItem;
+
+import java.util.ArrayList;
 
 public class ReceiptCardAdapter extends RecyclerView.Adapter<ReceiptCardAdapter.CardViewHolder>{
     //private static final String TAG = BillitemAdapter.class.getSimpleName();
 
     private int mNumberItems;
-    //private ArrayList<Recipe> mRecipes;
+    private ArrayList<ReceiptItem> mReceiptItems;
     final private ReceiptItemClickListener mOnClickListener;
 
-    public ReceiptCardAdapter(ReceiptItemClickListener listener) {
-        //mRecipes = recipes;
-        //mNumberItems = recipes.size();
-        mNumberItems = 6;
+    //TODO change receiptitem to receipt later
+    public ReceiptCardAdapter(ArrayList<ReceiptItem> receiptItems, ReceiptItemClickListener listener) {
+        mReceiptItems = receiptItems;
+        mNumberItems = receiptItems.size();
         mOnClickListener = listener;
     }
 
@@ -45,11 +48,11 @@ public class ReceiptCardAdapter extends RecyclerView.Adapter<ReceiptCardAdapter.
         //String currentRecipeName = mRecipes.get(position).getName();
         //int currentRecipeServings = mRecipes.get(position).getServings();
         Image currentReceiptImage = null;
-        String currentReceiptDate = "09/13/2018";
-        String currentReceiptLabel = "Japanese Food";
-        double currentReceiptTotal = 1350.25;
+        int currentReceiptDate = mReceiptItems.get(position).getQuantity();
+        String currentReceiptLabel = mReceiptItems.get(position).getName();
+        double currentReceiptTotal = mReceiptItems.get(position).getPrice();
 
-        holder.bind(currentReceiptImage, currentReceiptDate, currentReceiptLabel, Double.toString(currentReceiptTotal));
+        holder.bind(currentReceiptImage, Integer.toString(currentReceiptDate), currentReceiptLabel, Double.toString(currentReceiptTotal));
     }
 
     @Override
@@ -84,11 +87,11 @@ public class ReceiptCardAdapter extends RecyclerView.Adapter<ReceiptCardAdapter.
         @Override
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
-            mOnClickListener.onRecipeItemClicked(clickedPosition);
+            mOnClickListener.onReceiptItemClicked(clickedPosition);
         }
     }
 
     public interface ReceiptItemClickListener {
-        void onRecipeItemClicked(int clickedItemIndex);
+        void onReceiptItemClicked(int clickedItemIndex);
     }
 }
