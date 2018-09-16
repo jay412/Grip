@@ -1,5 +1,6 @@
 package com.herokuapp.jordan_chau.grip.fragments;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,12 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.herokuapp.jordan_chau.grip.R;
 import com.herokuapp.jordan_chau.grip.adapters.ReceiptCardAdapter;
 import com.herokuapp.jordan_chau.grip.model.Receipt;
@@ -25,14 +26,13 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 public class HistoryFragment extends Fragment implements ReceiptCardAdapter.ReceiptItemClickListener{
     @BindView(R.id.rv_receipt_cards) RecyclerView mReceiptList;
     private ReceiptCardAdapter mAdapter;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mRef;
-    private ArrayList<ReceiptItem> mReceiptItems;
+    private ArrayList<Receipt> mReceipts;
 
     @Nullable
     @Override
@@ -51,14 +51,14 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mReceiptList.setLayoutManager(layoutManager);
 
-        mReceiptItems = new ArrayList<>();
+        mReceipts = new ArrayList<>();
 
         mDatabase = FirebaseDatabase.getInstance();
-        mRef = mDatabase.getReference("receipts");
+        mRef = mDatabase.getReference()
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("receipts");
+
         setUpDatabaseListeners();
-
-
-        Timber.d("list: %s", mReceiptItems.toString());
 
         return rootView;
     }
@@ -80,26 +80,32 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
         mRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                //Timber.d("dataSnapshot Key: %s", dataSnapshot.getKey());
-                /*for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Object data = snapshot.getValue();
-                    Timber.d("data: %s", data);
-                } */
-                //Timber.d("data: %s", dataSnapshot.getValue());
-                int quantity = dataSnapshot.child("quantity").getValue(Integer.class);
-                String name = dataSnapshot.child("name").getValue(String.class);
-                double price = dataSnapshot.child("price").getValue(Double.class);
+                String date = dataSnapshot.child("date").getValue(String.class);
+                //double grandTotal = dataSnapshot.child("grandTotal").getValue(Double.class);
+                String label = dataSnapshot.child("label").getValue(String.class);
 
-                ReceiptItem createdItem = new ReceiptItem(quantity, name, price);
-                mReceiptItems.add(createdItem);
-                //mAdapter.notifyItemInserted(mAdapter.getItemCount() - 1);
-                //mAdapter.notifyDataSetChanged();
-                //TODO: figure out why mReceiptItems is not updating accordinly
-                Timber.d("name is: %s", createdItem.getName());
-                Timber.d("last item added: %s", mReceiptItems.get(0).getName());
-                Timber.d("list size: %s", mReceiptItems.size());
+                ArrayList<ReceiptItem> receiptItems = new ArrayList<>();
+                for(DataSnapshot snapshot : dataSnapshot.child("mReceiptItems").getChildren()) {
+                    //Object data = snapshot.getValue();
+                    String name = snapshot.child("name").getValue(String.class);
+                    double price = snapshot.child("price").getValue(Double.class);
+                    int quantity = snapshot.child("quantity").getValue(Integer.class);
+                    receiptItems.add(new ReceiptItem(quantity, name, price));
+                }
 
-                mAdapter = new ReceiptCardAdapter(mReceiptItems, HistoryFragment.this);
+                String receiptPicture = dataSnapshot.child("receiptPicture").getValue(String.class);
+                int numPplSharing = dataSnapshot.child("numPplSharing").getValue(Integer.class);
+                //double personPay = dataSnapshot.child("personPay").getValue(Double.class);
+                //double subTotal = dataSnapshot.child("subTotal").getValue(Double.class);
+                double tax = dataSnapshot.child("tax").getValue(Double.class);
+                double tip = dataSnapshot.child("tip").getValue(Double.class);
+
+
+                Receipt receipt = new Receipt(label, receiptItems, receiptPicture, numPplSharing, tax, tip);
+                receipt.setDate(date);
+                mReceipts.add(receipt);
+
+                mAdapter = new ReceiptCardAdapter(mReceipts, HistoryFragment.this);
                 mReceiptList.setAdapter(mAdapter);
             }
 

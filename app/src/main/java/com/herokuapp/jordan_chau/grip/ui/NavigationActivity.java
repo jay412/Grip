@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.herokuapp.jordan_chau.grip.R;
 import com.herokuapp.jordan_chau.grip.adapters.BottomNavBarAdapter;
 import com.herokuapp.jordan_chau.grip.adapters.NoSwipePager;
+import com.herokuapp.jordan_chau.grip.fragments.CalculateTotalDialogFragment;
 import com.herokuapp.jordan_chau.grip.fragments.CreateNewItemDialogFragment;
 import com.herokuapp.jordan_chau.grip.fragments.HistoryFragment;
 import com.herokuapp.jordan_chau.grip.fragments.NewBillFragment;
@@ -27,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
-public class NavigationActivity extends AppCompatActivity implements CreateNewItemDialogFragment.CreateNewItemDialogListener{
+public class NavigationActivity extends AppCompatActivity implements CreateNewItemDialogFragment.CreateNewItemDialogListener, CalculateTotalDialogFragment.CalculateTotalDialogListener{
     @BindView(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
     @BindView(R.id.view_pager) NoSwipePager mViewPager;
     @BindView(R.id.tv_title) TextView mTitle;
@@ -159,31 +160,24 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, String quantity, String name, String price) {
-        //TODO make recyclerview adapter for new bill page, add and set up adapter & RV, create receipt item here and add to RV
-        //TODO send data from dialog click to fragment and refresh fragment
-
         if (!quantity.equals("") && !name.equals("") && !price.equals("")) {
-            //Toast.makeText(this, "Quantity is: " + quantity + " Name is: " + name + " Price is: " + price, Toast.LENGTH_LONG).show();
             ReceiptItem createdItem = new ReceiptItem(Integer.valueOf(quantity), name, Double.valueOf(price));
-            //Toast.makeText(this, "Quantity is: " + createdItem.getQuantity() + " Name is: " + createdItem.getName() + " Price is: " + createdItem.getPrice(), Toast.LENGTH_LONG).show();
+            //Snackbar.make(mLayout, "Quantity is: " + createdItem.getQuantity() + " Name is: " + createdItem.getName() + " Price is: " + createdItem.getPrice(), Snackbar.LENGTH_SHORT).show();
 
-            Snackbar.make(mLayout, "Quantity is: " + createdItem.getQuantity() + " Name is: " + createdItem.getName() + " Price is: " + createdItem.getPrice(), Snackbar.LENGTH_SHORT).show();
-
-            //TODO: check why createdItem might be null
             CreateNewItemCallback callback = (CreateNewItemCallback) mPagerAdapter.getItem(1);
             callback.receiveNewItemData(createdItem);
         } else {
-            //Toast.makeText(this, "Check fields and try again.", Toast.LENGTH_LONG).show();
             Snackbar.make(mLayout, "Check fields and try again.", Snackbar.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onCalculateTotalDialogPositiveClick(DialogFragment dialog, String quantity, String name, String price) {
+
     }
 
     public interface CreateNewItemCallback {
         void receiveNewItemData(ReceiptItem createdItem);
         //public void onDialogNegativeClick(DialogFragment dialog);
-    }
-
-    public CoordinatorLayout getLayout(){
-        return mLayout;
     }
 }

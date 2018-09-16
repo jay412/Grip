@@ -1,9 +1,12 @@
 package com.herokuapp.jordan_chau.grip.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,19 +14,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.herokuapp.jordan_chau.grip.R;
+import com.herokuapp.jordan_chau.grip.model.Receipt;
 import com.herokuapp.jordan_chau.grip.model.ReceiptItem;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ReceiptCardAdapter extends RecyclerView.Adapter<ReceiptCardAdapter.CardViewHolder>{
     //private static final String TAG = BillitemAdapter.class.getSimpleName();
 
     private int mNumberItems;
-    private ArrayList<ReceiptItem> mReceiptItems;
+    private ArrayList<Receipt> mReceiptItems;
     final private ReceiptItemClickListener mOnClickListener;
 
-    //TODO change receiptitem to receipt later
-    public ReceiptCardAdapter(ArrayList<ReceiptItem> receiptItems, ReceiptItemClickListener listener) {
+    public ReceiptCardAdapter(ArrayList<Receipt> receiptItems, ReceiptItemClickListener listener) {
         mReceiptItems = receiptItems;
         mNumberItems = receiptItems.size();
         mOnClickListener = listener;
@@ -45,14 +49,12 @@ public class ReceiptCardAdapter extends RecyclerView.Adapter<ReceiptCardAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
-        //String currentRecipeName = mRecipes.get(position).getName();
-        //int currentRecipeServings = mRecipes.get(position).getServings();
-        Image currentReceiptImage = null;
-        int currentReceiptDate = mReceiptItems.get(position).getQuantity();
-        String currentReceiptLabel = mReceiptItems.get(position).getName();
-        double currentReceiptTotal = mReceiptItems.get(position).getPrice();
+        String currentReceiptImage = mReceiptItems.get(position).getReceiptPicture();
+        String currentReceiptDate = mReceiptItems.get(position).getDate();
+        String currentReceiptLabel = mReceiptItems.get(position).getLabel();
+        double currentReceiptTotal = mReceiptItems.get(position).getGrandTotal();
 
-        holder.bind(currentReceiptImage, Integer.toString(currentReceiptDate), currentReceiptLabel, Double.toString(currentReceiptTotal));
+        holder.bind(currentReceiptImage, currentReceiptDate, currentReceiptLabel, Double.toString(currentReceiptTotal));
     }
 
     @Override
@@ -76,9 +78,14 @@ public class ReceiptCardAdapter extends RecyclerView.Adapter<ReceiptCardAdapter.
             itemView.setOnClickListener(this);
         }
 
-        void bind(Image rImage, String rDate, String rLabel, String rTotal) {
-            //TODO change image
-            receiptImage.setBackground(null);
+        void bind(String rImage, String rDate, String rLabel, String rTotal) {
+            try {
+                Bitmap pictureBitmap = decodeFromFirebase64(rImage);
+                receiptImage.setImageBitmap(pictureBitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             receiptDate.setText(rDate);
             receiptLabel.setText(rLabel);
             receiptTotal.setText("$" + rTotal);
@@ -89,6 +96,11 @@ public class ReceiptCardAdapter extends RecyclerView.Adapter<ReceiptCardAdapter.
             int clickedPosition = getAdapterPosition();
             mOnClickListener.onReceiptItemClicked(clickedPosition);
         }
+    }
+
+    private static Bitmap decodeFromFirebase64(String imageUrl) throws IOException {
+        byte[] decodedByteArray = android.util.Base64.decode(imageUrl, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 
     public interface ReceiptItemClickListener {

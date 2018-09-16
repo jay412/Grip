@@ -1,33 +1,66 @@
 package com.herokuapp.jordan_chau.grip.model;
 
+import android.graphics.Bitmap;
 import android.media.Image;
+import android.os.Parcel;
+import android.os.Parcelable;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
-public class Receipt {
+public class Receipt implements Parcelable{
     private String mDate, mLabel;
     private ArrayList<ReceiptItem> mReceiptItems;
-    private Image mReceiptPicture;
+    private String mReceiptPicture;
     private int mNumPplSharing;
-    private double mTax, mTip, mTotal, mGrandTotal;
+    private double mTax, mTip, mSubTotal, mGrandTotal, mPersonPay;
 
-    public Receipt(String date, String label, ArrayList<ReceiptItem> receiptItems, Image receiptPicture, int numPplSharing, double tax, double tip, double total) {
-        mDate = date;
+    public Receipt(String label, ArrayList<ReceiptItem> receiptItems, String receiptPicture, int numPplSharing, double tax, double tip) {
+        mDate = getCurrentDate();
         mLabel = label;
         mReceiptItems = receiptItems;
         mReceiptPicture = receiptPicture;
         mNumPplSharing = numPplSharing;
-        mTax = tax;
         mTip = tip;
-        mTotal = total;
-        mGrandTotal = calculateGrandTotal(receiptItems, tax, tip);
+        mSubTotal = calculateSubTotal();
+        mTax = calculateTax();
+        mGrandTotal = calculateGrandTotal();
+        mPersonPay = calculateEachPersonPay();
     }
 
-    public String getmDate() {
+    protected Receipt(Parcel in) {
+        mDate = in.readString();
+        mLabel = in.readString();
+        mReceiptItems = in.createTypedArrayList(ReceiptItem.CREATOR);
+        mReceiptPicture = in.readString();
+        mNumPplSharing = in.readInt();
+        mTax = in.readDouble();
+        mTip = in.readDouble();
+        mSubTotal = in.readDouble();
+        mGrandTotal = in.readDouble();
+        mPersonPay = in.readDouble();
+    }
+
+    public static final Creator<Receipt> CREATOR = new Creator<Receipt>() {
+        @Override
+        public Receipt createFromParcel(Parcel in) {
+            return new Receipt(in);
+        }
+
+        @Override
+        public Receipt[] newArray(int size) {
+            return new Receipt[size];
+        }
+    };
+
+    public String getDate() {
         return mDate;
     }
 
-    public String getmLabel() {
+    public String getLabel() {
         return mLabel;
     }
 
@@ -35,41 +68,91 @@ public class Receipt {
         return mReceiptItems;
     }
 
-    public Image getmReceiptPicture() {
+    public String getReceiptPicture() {
         return mReceiptPicture;
     }
 
-    public int getmNumPplSharing() {
+    public int getNumPplSharing() {
         return mNumPplSharing;
     }
 
-    public double getmTax() {
+    public double getTax() {
         return mTax;
     }
 
-    public double getmTip() {
+    public double getTip() {
         return mTip;
     }
 
-    public double getmTotal() {
-        return mTotal;
+    //TODO: calculate tips later
+    public double getSubTotal() {
+        return mSubTotal;
     }
 
-    private double calculateGrandTotal(ArrayList<ReceiptItem> items, double tax, double tip) {
-        double grandTotal = 0.0;
-        //calculate each item prices based on quantity
-        for(int x = 0; x < items.size(); ++x) {
-            double currentItemPrice = items.get(x).getQuantity() * items.get(x).getPrice();
-            grandTotal += currentItemPrice;
+    public double getGrandTotal() { return mGrandTotal; }
+
+    public double getPersonPay() { return mPersonPay; }
+
+    public void setDate(String date) {
+        mDate = date;
+    }
+
+    private String getCurrentDate(){
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+        return format.format(calendar.getTime());
+    }
+
+    private double calculateSubTotal(){
+        double subTotal = 0.0;
+        for(int x = 0; x < mReceiptItems.size(); ++x) {
+            double currentItemPrice = mReceiptItems.get(x).getQuantity() * mReceiptItems.get(x).getPrice();
+            subTotal += currentItemPrice;
         }
+
+        return subTotal;
+    }
+
+    private double calculateTax(){
+        return mSubTotal * 0.08;
+    }
+
+    private double calculateGrandTotal() {
+        //calculate each item prices based on quantity
         //add tax and total
         /*
         grandTotal = grandTotal * tax;
         grandTotal += tip;
         */
+        return mSubTotal + mTax + 2.00;
+    }
 
-        grandTotal = grandTotal * 0.08;
-        grandTotal += 2.00;
-        return grandTotal;
+    private double calculateEachPersonPay(){
+        return mGrandTotal / mNumPplSharing;
+    }
+
+    public static String roundToMoneyFormat(double m) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+        return df.format(m);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mDate);
+        dest.writeString(mLabel);
+        dest.writeTypedList(mReceiptItems);
+        dest.writeString(mReceiptPicture);
+        dest.writeInt(mNumPplSharing);
+        dest.writeDouble(mTax);
+        dest.writeDouble(mTip);
+        dest.writeDouble(mSubTotal);
+        dest.writeDouble(mGrandTotal);
+        dest.writeDouble(mPersonPay);
     }
 }

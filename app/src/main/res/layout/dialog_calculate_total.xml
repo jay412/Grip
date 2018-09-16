@@ -1,60 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="16dp">
 
-    <!--TODO move title to center with padding -->
     <TextView
+        android:id="@+id/tv_dialog_title"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:text="@string/receipt_details"
-        android:layout_gravity="center"
+        android:layout_height="36dp"
+        android:text="@string/bill_details"
+        android:textAlignment="center"
+        android:textSize="24sp"
         android:background="@color/colorPrimaryDark"/>
 
     <TextView
-        android:id="@+id/et_add_quantity"
+        android:id="@+id/tv_subtotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/subtotal"
+        app:layout_constraintEnd_toStartOf="@+id/tv_item_subtotal"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_subtotal" />
+
+    <TextView
+        android:id="@+id/tv_item_subtotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"
-        android:hint="@string/subtotal"
-        android:layout_gravity="end"/>
+        android:hint="@string/hint_total"
+        app:layout_constraintEnd_toEndOf="@+id/tv_dialog_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_dialog_title"
+        android:text="@string/hint_total"/>
 
     <TextView
-        android:id="@+id/et_add_name"
+        android:id="@+id/tv_tax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:hint="@string/tax"
-        android:layout_gravity="end"/>
+        android:layout_marginEnd="16dp"
+        android:text="@string/tax"
+        app:layout_constraintEnd_toStartOf="@+id/tv_item_tax"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_tax" />
 
     <TextView
-        android:id="@+id/et_add_nam"
+        android:id="@+id/tv_item_tax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:hint="@string/tip"
-        android:layout_gravity="end"/>
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:hint="@string/hint_total"
+        app:layout_constraintEnd_toEndOf="@+id/tv_dialog_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_subtotal"
+        android:text="@string/hint_total"/>
 
     <TextView
-        android:id="@+id/et_add_na"
+        android:id="@+id/tv_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:hint="@string/grand_total"
-        android:layout_gravity="end"/>
+        android:layout_marginEnd="16dp"
+        android:text="@string/tip"
+        app:layout_constraintEnd_toStartOf="@+id/tv_item_tip"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_tip" />
 
     <TextView
-        android:id="@+id/et_add_price"
+        android:id="@+id/tv_item_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/each_person_should_pay"
-        android:layout_gravity="end"/>
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:hint="@string/hint_total"
+        app:layout_constraintEnd_toEndOf="@+id/tv_dialog_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_tax"
+        android:text="@string/hint_total"/>
+
+    <TextView
+        android:id="@+id/tv_grand_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/grand_total"
+        app:layout_constraintEnd_toStartOf="@+id/tv_item_grand_total"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_grand_total" />
+
+    <TextView
+        android:id="@+id/tv_item_grand_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:hint="@string/hint_total"
+        app:layout_constraintEnd_toEndOf="@+id/tv_dialog_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_tip"
+        android:text="@string/hint_total"/>
+
+    <TextView
+        android:id="@+id/tv_person_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/each_person_should_pay"
+        android:paddingStart="32dp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_item_person_pay"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_person_pay" />
+
+    <TextView
+        android:id="@+id/tv_item_person_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:hint="@string/hint_total"
+        app:layout_constraintEnd_toEndOf="@+id/tv_dialog_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_grand_total"
+        android:text="@string/hint_total"/>
 </android.support.constraint.ConstraintLayout>

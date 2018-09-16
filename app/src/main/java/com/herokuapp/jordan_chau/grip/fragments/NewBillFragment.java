@@ -9,14 +9,17 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,6 +29,7 @@ import com.herokuapp.jordan_chau.grip.model.Receipt;
 import com.herokuapp.jordan_chau.grip.model.ReceiptItem;
 import com.herokuapp.jordan_chau.grip.ui.NavigationActivity;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -38,9 +42,12 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
     @BindView(R.id.fab_take_picture) FloatingActionButton mTakePicture;
     @BindView(R.id.iv_receipt_image) ImageView mReceiptImage;
     @BindView(R.id.btn_calculate_total) Button mCalculateTotal;
+    @BindView(R.id.et_sharing_input) EditText mSharing;
     private BillitemAdapter mAdapter;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int RESULT_OK = -1;
+
+    private Bitmap mCurrentPicture;
 
     @Nullable
     @Override
@@ -52,18 +59,35 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
         mItemList.setLayoutManager(layoutManager);
         mItemList.setHasFixedSize(true);
 
-            //TODO remove this?
-            mAdapter = new BillitemAdapter(new ArrayList<ReceiptItem>(), this);
-            mItemList.setAdapter(mAdapter);
-
         setUpButtons();
        return rootView;
     }
 
-    public void showNoticeDialog() {
+    public void showCreateItemDialog() {
         // Create an instance of the dialog fragment and show it
         DialogFragment dialog = new CreateNewItemDialogFragment();
         dialog.show(getActivity().getSupportFragmentManager(), "CreateNewItemDialogFragment");
+    }
+
+    public void showCalculateTotalDialog() {
+        if(areInputsValid()) {
+            String bitmapUrl;
+            if(mCurrentPicture != null) {
+                bitmapUrl = convertBitmapToStringUrl(mCurrentPicture);
+            } else {
+                bitmapUrl = "";
+            }
+
+            Receipt newReceipt = new Receipt("test label", mAdapter.getItems(), bitmapUrl, Integer.valueOf(mSharing.getText().toString()), 0.08, 2.00);
+
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("receipt", newReceipt);
+
+            // Create an instance of the dialog fragment and show it
+            DialogFragment dialog = new CalculateTotalDialogFragment();
+            dialog.setArguments(bundle);
+            dialog.show(getActivity().getSupportFragmentManager(), "CalculateTotalDialogFragment");
+        }
     }
 
     private void dispatchTakePictureIntent() {
@@ -73,13 +97,18 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
         }
     }
 
+    private String convertBitmapToStringUrl(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            //TODO save image here?
-            mReceiptImage.setImageBitmap(imageBitmap);
+            mCurrentPicture = (Bitmap) extras.get("data");
+            mReceiptImage.setImageBitmap(mCurrentPicture);
         }
     }
 
@@ -88,7 +117,7 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
         mAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showNoticeDialog();
+                showCreateItemDialog();
             }
         });
 
@@ -110,9 +139,24 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
         mCalculateTotal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO implement
+                showCalculateTotalDialog();
             }
         });
+    }
+
+    private boolean areInputsValid(){
+        if(mAdapter == null) {
+            Snackbar.make(getActivity().findViewById(R.id.coordinator), "Create some items before calculating total", Snackbar.LENGTH_LONG).show();
+            return false;
+        } else if (mSharing.getText().toString().equals("0")) {
+            Snackbar.make(getActivity().findViewById(R.id.coordinator), "The number of people sharing must be one or more", Snackbar.LENGTH_LONG).show();
+            return false;
+        } else if (mSharing.getText().toString().isEmpty()) {
+            Snackbar.make(getActivity().findViewById(R.id.coordinator), "Please provide a value for number of people sharing", Snackbar.LENGTH_LONG).show();
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
@@ -121,11 +165,10 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
             mAdapter.addItem(createdItem);
             mAdapter.notifyItemInserted(mAdapter.getItemCount() - 1);
         } else {
-            mAdapter = new BillitemAdapter(new ArrayList<ReceiptItem>(), this);
-            //why is adapter still null?
+            ArrayList<ReceiptItem> newItemList = new ArrayList<>();
+            newItemList.add(createdItem);
+            mAdapter = new BillitemAdapter(newItemList, this);
             mItemList.setAdapter(mAdapter);
-            mAdapter.addItem(createdItem);
-            mAdapter.notifyItemInserted(mAdapter.getItemCount() - 1);
         }
     }
 

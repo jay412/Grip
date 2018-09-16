@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.herokuapp.jordan_chau.grip.R;
+import com.herokuapp.jordan_chau.grip.model.Receipt;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +44,7 @@ public class CreateNewItemDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.dialogTheme);
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
@@ -59,7 +60,7 @@ public class CreateNewItemDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         String quantity = mQuantity.getText().toString();
                         String name = mName.getText().toString();
-                        String price = mPrice.getText().toString();
+                        String price = Receipt.roundToMoneyFormat(Double.valueOf(mPrice.getText().toString()));
 
                         mListener.onDialogPositiveClick(CreateNewItemDialogFragment.this, quantity, name, price);
                     }

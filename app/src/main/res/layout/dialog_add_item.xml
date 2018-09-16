@@ -7,10 +7,13 @@
     <!--TODO move title to center with padding -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="36dp"
         android:text="@string/add_new_item"
-        android:layout_gravity="center"
-        android:background="@color/colorPrimaryDark"/>
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:background="@color/colorPrimaryDark"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"/>
 
     <EditText
         android:id="@+id/et_add_quantity"
@@ -21,7 +24,8 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="@string/quantity" />
+        android:hint="@string/quantity"
+        android:textColorHint="@color/white"/>
 
     <EditText
         android:id="@+id/et_add_name"
@@ -30,7 +34,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:fontFamily="sans-serif"
-        android:hint="@string/name"/>
+        android:hint="@string/name"
+        android:textColorHint="@color/white"/>
 
     <EditText
         android:id="@+id/et_add_price"
@@ -42,5 +47,6 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
-        android:hint="@string/price"/>
+        android:hint="@string/price"
+        android:textColorHint="@color/white"/>
 </LinearLayout>
