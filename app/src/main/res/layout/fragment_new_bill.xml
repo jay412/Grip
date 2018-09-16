@@ -99,6 +99,8 @@
         android:ems="10"
         android:inputType="number"
         android:textColor="@color/white"
+        android:text="@string/num_ppl_sharing_default_value"
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/btn_calculate_total"
         app:layout_constraintStart_toEndOf="@+id/tv_sharing_label" />
 

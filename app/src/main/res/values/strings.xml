@@ -16,7 +16,15 @@
     <string name="price">Price</string>
     <string name="add">Add</string>
     <string name="cancel">Cancel</string>
+    <string name="num_ppl_sharing_default_value">1</string>
 
+    <string name="receipt_details">Receipt Details</string>
+    <string name="subtotal">Subtotal: </string>
+    <string name="tax">Tax: </string>
+    <string name="tip">Tip: </string>
+    <string name="grand_total">Grand Total: </string>
+    <string name="each_person_should_pay">Each person should pay: </string>
+    <string name="save">Save</string>
 
     <!-- settings page -->
     <string name="title_settings">Settings</string>
