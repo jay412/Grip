@@ -1,5 +1,6 @@
 package com.herokuapp.jordan_chau.grip.ui;
 
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
