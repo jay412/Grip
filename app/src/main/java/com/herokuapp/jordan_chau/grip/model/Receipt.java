@@ -97,6 +97,8 @@ public class Receipt implements Parcelable{
         mDate = date;
     }
 
+    public void setLabel(String label) { mLabel = label; }
+
     private String getCurrentDate(){
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
@@ -154,5 +156,28 @@ public class Receipt implements Parcelable{
         dest.writeDouble(mSubTotal);
         dest.writeDouble(mGrandTotal);
         dest.writeDouble(mPersonPay);
+    }
+
+    public String toString(){
+        String details = "Item List:" + "\n";
+
+        for(ReceiptItem currentItem : mReceiptItems) {
+            String quantity = Integer.toString(currentItem.getQuantity());
+            String name = currentItem.getName();
+            String price = Double.toString(currentItem.getPrice());
+
+            details += "Quantity: " + quantity + "\n";
+            details += "Name: " + name + "\n";
+            details += "Price: $" + price + "\n\n";
+        }
+
+        details += "\n" + "Subtotal: $" + mSubTotal + "\n";
+        details += "Tax: $" + mTax + "\n";
+        details += "Tip: $" + mTip + "\n";
+        details += "Grand Total: $" + mGrandTotal + "\n";
+        details += "Number of People Sharing: " + mNumPplSharing + "\n";
+        details += "Each person should pay: $" + mPersonPay + "\n";
+
+        return details;
     }
 }

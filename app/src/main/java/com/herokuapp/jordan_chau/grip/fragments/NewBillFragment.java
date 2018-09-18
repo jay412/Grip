@@ -60,7 +60,7 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
         mItemList.setHasFixedSize(true);
 
         setUpButtons();
-       return rootView;
+        return rootView;
     }
 
     public void showCreateItemDialog() {
@@ -145,7 +145,7 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
     }
 
     private boolean areInputsValid(){
-        if(mAdapter == null) {
+        if(mAdapter == null || mAdapter.getItemCount() < 1) {
             Snackbar.make(getActivity().findViewById(R.id.coordinator), "Create some items before calculating total", Snackbar.LENGTH_LONG).show();
             return false;
         } else if (mSharing.getText().toString().equals("0")) {
@@ -168,6 +168,7 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
             ArrayList<ReceiptItem> newItemList = new ArrayList<>();
             newItemList.add(createdItem);
             mAdapter = new BillitemAdapter(newItemList, this);
+            //TODO figure out why this statement is null
             mItemList.setAdapter(mAdapter);
         }
     }

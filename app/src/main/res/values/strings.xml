@@ -5,6 +5,7 @@
 
     <!-- history page -->
     <string name="title_history">History</string>
+    <string name="delete">Delete</string>
 
     <!-- new bill page -->
     <string name="title_new_bill">New Bill</string>
@@ -19,6 +20,7 @@
     <string name="num_ppl_sharing_default_value">1</string>
 
     <string name="bill_details">Bill Details</string>
+    <string name="receipt_label">Receipt Label: </string>
     <string name="subtotal">Subtotal: </string>
     <string name="tax">Tax: </string>
     <string name="tip">Tip: </string>
@@ -26,6 +28,7 @@
     <string name="each_person_should_pay">Each person should pay: </string>
     <string name="save">Save</string>
     <string name="email">Email</string>
+    <string name="close">Close</string>
 
     <!-- settings page -->
     <string name="title_settings">Settings</string>
@@ -42,4 +45,7 @@
     <string name="hint_quantity">20</string>
     <string name="hint_label">Japanese Food</string>
     <string name="hint_total">$1350.00</string>
+    <string name="hint_sample_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi iaculis leo quis viverra cursus. Donec a tristique erat, eu interdum nisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse pulvinar, ligula a aliquet iaculis, dui orci posuere justo, id aliquam tellus nulla sit amet orci.</string>
+    <string name="hint_receipt_label">Pizza</string>
+
 </resources>

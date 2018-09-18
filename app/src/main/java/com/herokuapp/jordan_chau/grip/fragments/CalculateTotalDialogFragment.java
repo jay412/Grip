@@ -3,6 +3,7 @@ package com.herokuapp.jordan_chau.grip.fragments;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -33,6 +34,7 @@ public class CalculateTotalDialogFragment extends DialogFragment {
     @BindView(R.id.tv_item_tip) TextView mTip;
     @BindView(R.id.tv_item_grand_total) TextView mGrandTotal;
     @BindView(R.id.tv_item_person_pay) TextView mPersonPay;
+    @BindView(R.id.et_item_label) EditText mItemLabel;
 
     // Use this instance of the interface to deliver action events
     private CalculateTotalDialogListener mListener;
@@ -76,6 +78,7 @@ public class CalculateTotalDialogFragment extends DialogFragment {
             mTip.setText(new StringBuilder().append("$").append(Receipt.roundToMoneyFormat(receipt.getTip())).toString());
             mGrandTotal.setText(new StringBuilder().append("$").append(Receipt.roundToMoneyFormat(receipt.getGrandTotal())).toString());
             mPersonPay.setText(new StringBuilder().append("$").append(Receipt.roundToMoneyFormat(receipt.getPersonPay())).toString());
+            //TODO fix each person pay rounding value
 
 
             // Inflate and set the layout for the dialog
@@ -90,6 +93,8 @@ public class CalculateTotalDialogFragment extends DialogFragment {
                             //String price = mPrice.getText().toString();
 
                             //mListener.onDialogPositiveClick(CalculateTotalDialogFragment.this, quantity, name, price);
+                            //get label from user input if there is, otherwise label will be ""
+                            receipt.setLabel(mItemLabel.getText().toString());
 
                             mReceiptRef = FirebaseDatabase.getInstance()
                                     .getReference()
@@ -104,7 +109,9 @@ public class CalculateTotalDialogFragment extends DialogFragment {
                     .setNeutralButton(R.string.email, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
+                            String receiptDetails = receipt.toString();
 
+                            startActivity(Intent.createChooser(setUpEmailIntent(receiptDetails), "Sending email..."));
                         }
                     })
                     .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -114,6 +121,13 @@ public class CalculateTotalDialogFragment extends DialogFragment {
                     });
             return builder.create();
         }
+    }
+
+    public static Intent setUpEmailIntent(String message) {
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setType("plain/text");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, message);
+        return emailIntent;
     }
 
     /* The activity that creates an instance of this dialog fragment must
