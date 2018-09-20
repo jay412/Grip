@@ -18,17 +18,32 @@ public class Receipt implements Parcelable{
     private int mNumPplSharing;
     private double mTax, mTip, mSubTotal, mGrandTotal, mPersonPay;
 
+    //used when receipt is created in calculate total dialog fragment
     public Receipt(String label, ArrayList<ReceiptItem> receiptItems, String receiptPicture, int numPplSharing, double tax, double tip) {
         mDate = getCurrentDate();
         mLabel = label;
         mReceiptItems = receiptItems;
         mReceiptPicture = receiptPicture;
         mNumPplSharing = numPplSharing;
-        mTip = tip;
         mSubTotal = calculateSubTotal();
-        mTax = calculateTax();
+        mTax = calculateTax(tax);
+        mTip = calculateTip(tip);
         mGrandTotal = calculateGrandTotal();
         mPersonPay = calculateEachPersonPay();
+    }
+
+    //used when retrieve receipts from database to display in history tab
+    public Receipt(String date, String label, ArrayList<ReceiptItem> receiptItems, String receiptPicture, int numPplSharing, double tax, double tip, double subTotal, double grandTotal, double personPay) {
+        mDate = date;
+        mLabel = label;
+        mReceiptItems = receiptItems;
+        mReceiptPicture = receiptPicture;
+        mNumPplSharing = numPplSharing;
+        mSubTotal = subTotal;
+        mTax = tax;
+        mTip = tip;
+        mGrandTotal = grandTotal;
+        mPersonPay = personPay;
     }
 
     protected Receipt(Parcel in) {
@@ -84,7 +99,6 @@ public class Receipt implements Parcelable{
         return mTip;
     }
 
-    //TODO: calculate tips later
     public double getSubTotal() {
         return mSubTotal;
     }
@@ -115,18 +129,14 @@ public class Receipt implements Parcelable{
         return subTotal;
     }
 
-    private double calculateTax(){
-        return mSubTotal * 0.08;
+    private double calculateTax(double tax){
+        return mSubTotal * tax;
     }
 
+    private double calculateTip(double tip) { return mSubTotal * tip; }
+
     private double calculateGrandTotal() {
-        //calculate each item prices based on quantity
-        //add tax and total
-        /*
-        grandTotal = grandTotal * tax;
-        grandTotal += tip;
-        */
-        return mSubTotal + mTax + 2.00;
+        return mSubTotal + mTax + mTip;
     }
 
     private double calculateEachPersonPay(){
@@ -172,11 +182,11 @@ public class Receipt implements Parcelable{
         }
 
         details += "\n" + "Subtotal: $" + mSubTotal + "\n";
-        details += "Tax: $" + mTax + "\n";
+        details += "Tax: $" + roundToMoneyFormat(mTax) + "\n";
         details += "Tip: $" + mTip + "\n";
-        details += "Grand Total: $" + mGrandTotal + "\n";
+        details += "Grand Total: $" + roundToMoneyFormat(mGrandTotal) + "\n";
         details += "Number of People Sharing: " + mNumPplSharing + "\n";
-        details += "Each person should pay: $" + mPersonPay + "\n";
+        details += "Each person should pay: $" + roundToMoneyFormat(mPersonPay) + "\n";
 
         return details;
     }

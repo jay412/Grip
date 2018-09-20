@@ -34,9 +34,9 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
     @BindView(R.id.view_pager) NoSwipePager mViewPager;
     @BindView(R.id.tv_title) TextView mTitle;
     @BindView(R.id.coordinator) CoordinatorLayout mLayout;
+
     private BottomNavBarAdapter mPagerAdapter;
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
+    private int mHistoryCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +46,8 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
         Timber.plant(new Timber.DebugTree());
         Timber.tag("NavigationActivity");
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if (mFirebaseUser == null) {
             //not signed in, launch sign in activity
             startActivity(new Intent(this, LoginActivity.class));
@@ -112,22 +112,7 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
 
         // Set current item programmatically - set to New Bill tab
         bottomNavigation.setCurrentItem(1);
-
-        // Customize notification (title, background, typeface)
-        //bottomNavigation.setNotificationBackgroundColor(fetchColor(R.color.color_notification));
-
-        // Add or remove notification for each item
-        //bottomNavigation.setNotification("1", 2);
-
-        // OR
-        /*AHNotification notification = new AHNotification.Builder()
-                .setText("1")
-                .setBackgroundColor(ContextCompat.getColor(DemoActivity.this, R.color.color_notification_back))
-                .setTextColor(ContextCompat.getColor(DemoActivity.this, R.color.color_notification_text))
-                .build();
-        bottomNavigation.setNotification(notification, 1);
-        */
-
+        
         // Set listeners
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
@@ -139,6 +124,8 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
                     switch(position) {
                         case 0:
                             mTitle.setText(getResources().getString(R.string.title_history));
+                            bottomNavigation.setNotification("", 0);
+                            mHistoryCount = 0;
                             break;
                         case 1:
                             mTitle.setText(getResources().getString(R.string.title_new_bill));
@@ -163,7 +150,6 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
     public void onDialogPositiveClick(DialogFragment dialog, String quantity, String name, String price) {
         if (!quantity.equals("") && !name.equals("") && !price.equals("")) {
             ReceiptItem createdItem = new ReceiptItem(Integer.valueOf(quantity), name, Double.valueOf(price));
-            //Snackbar.make(mLayout, "Quantity is: " + createdItem.getQuantity() + " Name is: " + createdItem.getName() + " Price is: " + createdItem.getPrice(), Snackbar.LENGTH_SHORT).show();
 
             CreateNewItemCallback callback = (CreateNewItemCallback) mPagerAdapter.getItem(1);
             callback.receiveNewItemData(createdItem);
@@ -173,8 +159,15 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
     }
 
     @Override
-    public void onCalculateTotalDialogPositiveClick(DialogFragment dialog, String quantity, String name, String price) {
+    public void dialogMissingFields() {
+        Snackbar.make(mLayout, "Please fill in the missing fields", Snackbar.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void onCalculateTotalDialogPositiveClick() {
+        // Add or remove notification for each item
+        mHistoryCount++;
+        bottomNavigation.setNotification(Integer.toString(mHistoryCount), 0);
     }
 
     public interface CreateNewItemCallback {

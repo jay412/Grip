@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -58,11 +59,15 @@ public class CreateNewItemDialogFragment extends DialogFragment {
                 .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        String quantity = mQuantity.getText().toString();
-                        String name = mName.getText().toString();
-                        String price = Receipt.roundToMoneyFormat(Double.valueOf(mPrice.getText().toString()));
+                        if(mQuantity.getText().toString().isEmpty() || mName.getText().toString().isEmpty() || mPrice.getText().toString().isEmpty()) {
+                            mListener.dialogMissingFields();
+                        } else {
+                            String quantity = mQuantity.getText().toString();
+                            String name = mName.getText().toString();
+                            String price = Receipt.roundToMoneyFormat(Double.valueOf(mPrice.getText().toString()));
 
-                        mListener.onDialogPositiveClick(CreateNewItemDialogFragment.this, quantity, name, price);
+                            mListener.onDialogPositiveClick(CreateNewItemDialogFragment.this, quantity, name, price);
+                        }
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -81,5 +86,6 @@ public class CreateNewItemDialogFragment extends DialogFragment {
     public interface CreateNewItemDialogListener {
         void onDialogPositiveClick(DialogFragment dialog, String quantity, String name, String price);
         //public void onDialogNegativeClick(DialogFragment dialog);
+        void dialogMissingFields();
     }
 }

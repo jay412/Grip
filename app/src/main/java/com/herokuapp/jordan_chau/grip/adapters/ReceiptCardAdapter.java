@@ -54,7 +54,7 @@ public class ReceiptCardAdapter extends RecyclerView.Adapter<ReceiptCardAdapter.
         String currentReceiptLabel = mReceiptItems.get(position).getLabel();
         double currentReceiptTotal = mReceiptItems.get(position).getGrandTotal();
 
-        holder.bind(currentReceiptImage, currentReceiptDate, currentReceiptLabel, Double.toString(currentReceiptTotal));
+        holder.bind(currentReceiptImage, currentReceiptDate, currentReceiptLabel, Receipt.roundToMoneyFormat(currentReceiptTotal));
     }
 
     @Override

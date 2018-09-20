@@ -1,60 +1,80 @@
 package com.herokuapp.jordan_chau.grip.fragments;
 
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import android.support.v7.preference.PreferenceManager;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.herokuapp.jordan_chau.grip.R;
 import com.herokuapp.jordan_chau.grip.ui.LoginActivity;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.jaredrummler.android.device.DeviceName;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
-    @BindView(R.id.btn_logout) Button mLogout;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         // Load the preferences from an XML resource
         setPreferencesFromResource(R.xml.preferences, rootKey);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        //set up tax and tip default summaries
+        setDeviceIdSummary(getString(R.string.tax_preference_key), getString(R.string.default_tax_rate));
+        setDeviceIdSummary(getString(R.string.tip_list_preference_key), getString(R.string.default_tip));
+
+        setDevicePreferenceSummary();
+        //set up preference click listeners
+        setUpPreferenceClickListeners();
     }
 
-    /*@Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
-        ButterKnife.bind(this, rootView);
+    public void setDeviceIdSummary(final String deviceIdKey, String deviceIdDefault) {
+        String deviceIdValue = sharedPreferences.getString(deviceIdKey, deviceIdDefault);
 
-        mLogout.setOnClickListener(new View.OnClickListener() {
+        final Preference preference = findPreference(deviceIdKey);
+        preference.setSummary(deviceIdValue);
+
+        preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
-            public void onClick(View v) {
-                signOut(getActivity());
+            public boolean onPreferenceChange(Preference preference, Object o) {
+
+                String newValue = o.toString();
+                sharedPreferences.edit().putString(deviceIdKey, newValue).apply();
+                preference.setSummary(newValue);
+                return true;
             }
         });
+    }
 
-        return rootView;
-    } */
+    public void setDevicePreferenceSummary(){
+        Preference devicePreference = findPreference(getString(R.string.device_stylish_preference_key));
 
-    public void signOut(final Context c) {
+        String deviceName = DeviceName.getDeviceName();
+        devicePreference.setSummary(deviceName);
+    }
+
+    private void setUpPreferenceClickListeners() {
+        Preference logoutPreference = findPreference("logout_preference");
+        logoutPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                signOut();
+                return true;
+            }
+        });
+    }
+
+    public void signOut() {
         AuthUI.getInstance()
-                .signOut(c)
+                .signOut(getActivity())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     public void onComplete(@NonNull Task<Void> task) {
-                        //make log out message?
-                        //Snackbar.make(getActivity().findViewById(R.id.coordinator), "You have been logged out.", Snackbar.LENGTH_SHORT).show();
-                        startActivity(new Intent(c, LoginActivity.class));
+                        startActivity(new Intent(getActivity(), LoginActivity.class));
                         getActivity().finish();
                     }
                 });

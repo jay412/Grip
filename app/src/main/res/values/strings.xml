@@ -33,12 +33,48 @@
     <!-- settings page -->
     <string name="title_settings">Settings</string>
     <string name="setting_bill_calculation">Bill Calculation</string>
+    <string name="set_tax_rate">Set Tax Rate </string>
+    <string name="default_tax_rate">0.08875</string>
+
+    <string name="enable_tips">Enable Tips</string>
+    <string name="set_tip_rate">Set Tip Rate</string>
+    <string name="default_tip">0.15</string>
+
+    <!-- preference keys and values -->
+    <string name="tax_preference_key">tax_edit_text_preference</string>
+    <string name="tip_switch_preference_key">parent_tip_switch_preference</string>
+    <string name="tip_list_preference_key">tip_list_preference</string>
+    <string name="device_stylish_preference_key">devices_stylish_preference</string>
+    <string name="share_stylish_preference_key">share_stylish_preference</string>
+    <string name="notifications_checkbox_preference_key">notifications_checkbox_preference</string>
+    <string name="version_stylish_preference_key">version_stylish_preference</string>
+    <string name="logout_preference_key">logout_preference</string>
+
     <string name="setting_account">Account</string>
     <string name="setting_security">Security</string>
+    <string name="setting_device">Device</string>
     <string name="setting_social">Social</string>
+    <string name="setting_share">Share this app</string>
     <string name="setting_notifications">Notifications</string>
+    <string name="setting_enable_notifications">Enable or disable notifications</string>
     <string name="setting_about">About</string>
+    <string name="version">Version</string>
+    <string name="version_number">v1.0.0</string>
     <string name="logout">Log out</string>
+
+    <string-array name="tip_rate_options">
+        <item>15%</item>
+        <item>18%</item>
+        <item>20%</item>
+        <item>25%</item>
+    </string-array>
+
+    <string-array name="tip_rate_values">
+        <item>0.15</item>
+        <item>0.18</item>
+        <item>0.20</item>
+        <item>0.25</item>
+    </string-array>
 
     <!-- hint strings -->
     <string name="hint_date">09/13/2018</string>
@@ -47,5 +83,8 @@
     <string name="hint_total">$1350.00</string>
     <string name="hint_sample_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi iaculis leo quis viverra cursus. Donec a tristique erat, eu interdum nisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse pulvinar, ligula a aliquet iaculis, dui orci posuere justo, id aliquam tellus nulla sit amet orci.</string>
     <string name="hint_receipt_label">Pizza</string>
+
+    <!-- content descriptions -->
+    <string name="cd_receipt_image">This is the receipt image</string>
 
 </resources>

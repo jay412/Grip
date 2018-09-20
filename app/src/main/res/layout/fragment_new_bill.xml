@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:paddingLeft="16dp"
@@ -77,7 +77,8 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/fab_take_picture"
         app:layout_constraintTop_toTopOf="@+id/fab_take_picture"
-        app:srcCompat="@drawable/ic_img_placeholder" />
+        app:srcCompat="@drawable/ic_img_placeholder"
+        android:contentDescription="@string/cd_receipt_image"/>
 
     <TextView
         android:id="@+id/tv_sharing_label"
@@ -108,7 +109,7 @@
         android:id="@+id/btn_calculate_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/calculate_total"

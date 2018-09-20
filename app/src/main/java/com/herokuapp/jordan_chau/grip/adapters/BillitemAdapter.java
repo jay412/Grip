@@ -88,11 +88,15 @@ public class BillitemAdapter extends RecyclerView.Adapter<BillitemAdapter.ItemVi
         mNumberItems++;
     }
 
+    public void removeItem(int position) {
+        mItems.remove(position);
+        mNumberItems--;
+    }
+
     public ArrayList<ReceiptItem> getItems() {
         return mItems;
     }
 
-    //TODO: implement delete when user clicks item
     public interface BillItemClickListener {
         void onBillItemClicked(int clickedItemIndex);
     }

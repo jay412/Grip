@@ -1,86 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- TODO fix this -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/title_activity_navigation">
+    android:title="@string/title_settings">
 
-    <Preference
-        android:key="basic_preference"
-        android:title="@string/title_activity_navigation"
-        android:summary="@string/title_activity_navigation" />
+     <PreferenceCategory
+        android:title="@string/setting_bill_calculation">
 
-    <Preference
-        android:key="stylish_preference"
-        android:title="@string/title_activity_navigation"
-        android:summary="@string/title_activity_navigation" />
+         <EditTextPreference
+             android:key="@string/tax_preference_key"
+             android:title="@string/set_tax_rate"
+             android:dialogTitle="@string/set_tax_rate"
+             android:defaultValue="@string/default_tax_rate"
+             android:dialogLayout="@layout/pref_dialog_edittext_fix"/>
 
-    <Preference
-        android:key="preference_with_icon"
-        android:title="Preference with icon"
-        android:summary="This preference has an icon"
-        android:icon="@android:drawable/ic_menu_camera" />
+         <SwitchPreference
+             android:key="@string/tip_switch_preference_key"
+             android:title="@string/enable_tips"
+             android:defaultValue="true"/>
+
+         <ListPreference
+             android:key="@string/tip_list_preference_key"
+             android:title="@string/set_tip_rate"
+             android:dependency="@string/tip_switch_preference_key"
+             android:dialogTitle="@string/set_tip_rate"
+             android:defaultValue="@string/default_tip"
+             android:entries="@array/tip_rate_options"
+             android:entryValues="@array/tip_rate_values"
+             />
+
+    </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/title_activity_navigation">
+        android:title="@string/setting_security">
 
-        <CheckBoxPreference
-            android:key="checkbox_preference"
-            android:title="@string/title_activity_navigation"
-            android:summary="@string/title_activity_navigation" />
+    <Preference
+        android:key="@string/device_stylish_preference_key"
+        android:title="@string/setting_device" />
+
+    </PreferenceCategory>
+
+    <!-- <PreferenceCategory
+        android:title="@string/setting_social">
+
+        <Preference
+            android:key="@string/share_stylish_preference_key"
+            android:title="@string/setting_share" />
+
+    </PreferenceCategory> -->
+
+    <!-- <PreferenceCategory
+        android:title="@string/setting_notifications">
 
         <SwitchPreference
-            android:key="switch_preference"
-            android:title="Switch preference"
-            android:summary="This is a switch" />
+            android:key="@string/notifications_checkbox_preference_key"
+            android:title="@string/setting_notifications"
+            android:defaultValue="true"/>
 
-        <DropDownPreference
-            android:key="dropdown_preference"
-            android:title="@string/title_dropdown_preference"
-            android:summary="@string/summary_dropdown_preference"
-            android:entries="@array/entries_list_preference"
-            android:entryValues="@array/entryvalues_list_preference" />
+    </PreferenceCategory> -->
+
+    <PreferenceCategory
+        android:title="@string/setting_about">
+
+        <Preference
+            android:key="@string/version_stylish_preference_key"
+            android:title="@string/version"
+            android:summary="@string/version_number" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/title_activity_navigation">
+    <Preference
+        android:key="@string/logout_preference_key"
+        android:title="@string/logout" />
 
-        <EditTextPreference
-            android:key="edittext_preference"
-            android:title="@string/title_activity_navigation"
-            android:summary="@string/title_activity_navigation"
-            android:dialogTitle="@string/title_activity_navigation" />
 
-        <ListPreference
-            android:key="list_preference"
-            android:title="@string/title_activity_navigation"
-            android:summary="@string/title_activity_navigation"
-            android:entries="@string/title_activity_navigation"
-            android:entryValues="@string/title_activity_navigation"
-            android:dialogTitle="@string/title_activity_navigation" />
+    <!--
+<PreferenceCategory
+android:title="@string/title_activity_navigation">
 
-        <MultiSelectListPreference
-            android:key="multi_select_list_preference"
-            android:title="@string/title_activity_navigation"
-            android:summary="@string/title_activity_navigation"
-            android:entries="@string/title_activity_navigation"
-            android:entryValues="@string/title_activity_navigation"
-            android:dialogTitle="@string/title_activity_navigation" />
+ This PreferenceScreen tag serves as a screen break (similar to page break
+     in word processing). Like for other preference types, we assign a key
+     here so it is able to save and restore its instance state.
+<PreferenceScreen
+    android:key="screen_preference"
+    android:title="@string/title_activity_navigation"
+    android:summary="@string/title_activity_navigation"> -->
 
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/title_activity_navigation">
-
-        <!-- This PreferenceScreen tag serves as a screen break (similar to page break
-             in word processing). Like for other preference types, we assign a key
-             here so it is able to save and restore its instance state. -->
-        <PreferenceScreen
-            android:key="screen_preference"
-            android:title="@string/title_activity_navigation"
-            android:summary="@string/title_activity_navigation">
-
-            <!-- You can place more preferences here that will be shown on the next screen. -->
+            <!-- You can place more preferences here that will be shown on the next screen.
 
             <CheckBoxPreference
                 android:key="next_screen_checkbox_preference"
@@ -97,25 +102,6 @@
                 android:data="http://www.android.com" />
 
         </PreferenceScreen>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/title_activity_navigation">
-
-        <CheckBoxPreference
-            android:key="parent_checkbox_preference"
-            android:title="@string/title_activity_navigation"
-            android:summary="@string/title_activity_navigation" />
-
-        <!-- The visual style of a child is defined by this styled theme attribute. -->
-        <CheckBoxPreference
-            android:key="child_checkbox_preference"
-            android:dependency="parent_checkbox_preference"
-            android:layout="?android:attr/preferenceLayoutChild"
-            android:title="@string/title_activity_navigation"
-            android:summary="@string/title_activity_navigation" />
-
-    </PreferenceCategory>
+    </PreferenceCategory> -->
 
 </PreferenceScreen>

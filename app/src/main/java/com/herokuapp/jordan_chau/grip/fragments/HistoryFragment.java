@@ -43,7 +43,7 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
     private ArrayList<Receipt> mReceipts;
     private BottomSheetDialog mBottomSheetDialog;
 
-    //TODO make final strings for database child names
+    private static final String RECEIPT_CHILD = "receipts";
 
     @Nullable
     @Override
@@ -67,7 +67,7 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
         mDatabase = FirebaseDatabase.getInstance();
         mRef = mDatabase.getReference()
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("receipts");
+                .child(RECEIPT_CHILD);
 
         setUpDatabaseListeners();
 
@@ -83,7 +83,8 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                getAllReceipts(dataSnapshot);
+                //remove possible duplicates
+                //getAllReceipts(dataSnapshot);
             }
 
             @Override
@@ -106,7 +107,7 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
     private void getAllReceipts(DataSnapshot dataSnapshot) {
         //retrieve and parse data from database
         String date = dataSnapshot.child("date").getValue(String.class);
-        //double grandTotal = dataSnapshot.child("grandTotal").getValue(Double.class);
+        double grandTotal = dataSnapshot.child("grandTotal").getValue(Double.class);
         String label = dataSnapshot.child("label").getValue(String.class);
 
         ArrayList<ReceiptItem> receiptItems = new ArrayList<>();
@@ -117,16 +118,15 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
             receiptItems.add(new ReceiptItem(quantity, name, price));
         }
 
-        String receiptPicture = dataSnapshot.child("receiptPicture").getValue(String.class);
         int numPplSharing = dataSnapshot.child("numPplSharing").getValue(Integer.class);
-        //double personPay = dataSnapshot.child("personPay").getValue(Double.class);
-        //double subTotal = dataSnapshot.child("subTotal").getValue(Double.class);
+        double personPay = dataSnapshot.child("personPay").getValue(Double.class);
+        String receiptPicture = dataSnapshot.child("receiptPicture").getValue(String.class);
+        double subTotal = dataSnapshot.child("subTotal").getValue(Double.class);
         double tax = dataSnapshot.child("tax").getValue(Double.class);
         double tip = dataSnapshot.child("tip").getValue(Double.class);
 
         //create receipt object from database data
-        Receipt receipt = new Receipt(label, receiptItems, receiptPicture, numPplSharing, tax, tip);
-        receipt.setDate(date);
+        Receipt receipt = new Receipt(date, label, receiptItems, receiptPicture, numPplSharing, tax, tip, subTotal, grandTotal, personPay);
         mReceipts.add(receipt);
         //refresh recyclerview
         mAdapter = new ReceiptCardAdapter(mReceipts, HistoryFragment.this);
@@ -194,7 +194,7 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
         (bottomSheetLayout.findViewById(R.id.button_delete)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO fix this later
+                //TODO change this to delete based on ID
                 triggerReceiptDeletion(receipt.getReceiptPicture());
                 mBottomSheetDialog.dismiss();
             }

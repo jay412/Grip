@@ -78,8 +78,6 @@ public class CalculateTotalDialogFragment extends DialogFragment {
             mTip.setText(new StringBuilder().append("$").append(Receipt.roundToMoneyFormat(receipt.getTip())).toString());
             mGrandTotal.setText(new StringBuilder().append("$").append(Receipt.roundToMoneyFormat(receipt.getGrandTotal())).toString());
             mPersonPay.setText(new StringBuilder().append("$").append(Receipt.roundToMoneyFormat(receipt.getPersonPay())).toString());
-            //TODO fix each person pay rounding value
-
 
             // Inflate and set the layout for the dialog
             // Pass null as the parent view because its going in the dialog layout
@@ -88,10 +86,6 @@ public class CalculateTotalDialogFragment extends DialogFragment {
                     .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            //String quantity = mQuantity.getText().toString();
-                            //String name = mName.getText().toString();
-                            //String price = mPrice.getText().toString();
-
                             //mListener.onDialogPositiveClick(CalculateTotalDialogFragment.this, quantity, name, price);
                             //get label from user input if there is, otherwise label will be ""
                             receipt.setLabel(mItemLabel.getText().toString());
@@ -102,8 +96,8 @@ public class CalculateTotalDialogFragment extends DialogFragment {
                                     .child("receipts");
                             mReceiptRef.push().setValue(receipt);
 
-                            //TODO update history tab to have 1 notification
                             Snackbar.make(getActivity().findViewById(R.id.coordinator), "Saved!", Snackbar.LENGTH_SHORT).show();
+                            mListener.onCalculateTotalDialogPositiveClick();
                         }
                     })
                     .setNeutralButton(R.string.email, new DialogInterface.OnClickListener() {
@@ -111,7 +105,7 @@ public class CalculateTotalDialogFragment extends DialogFragment {
                         public void onClick(DialogInterface dialog, int id) {
                             String receiptDetails = receipt.toString();
 
-                            startActivity(Intent.createChooser(setUpEmailIntent(receiptDetails), "Sending email..."));
+                            startActivity(Intent.createChooser(setUpEmailIntent(receiptDetails), "Send an email"));
                         }
                     })
                     .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -136,7 +130,7 @@ public class CalculateTotalDialogFragment extends DialogFragment {
      *
      * This works*/
     public interface CalculateTotalDialogListener {
-        void onCalculateTotalDialogPositiveClick(DialogFragment dialog, String quantity, String name, String price);
+        void onCalculateTotalDialogPositiveClick();
         //public void onDialogNegativeClick(DialogFragment dialog);
     }
 }
