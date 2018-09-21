@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/configure" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/set_tax_rate" />
+
+
+    <EditText
+        android:id="@+id/appwidget_text"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/set_tip_rate"
+        android:layout_marginTop="16dp"/>
+
+     <RadioGroup
+         android:id="@+id/radio_group"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/radio_btn_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/fifteen_percent" />
+
+        <RadioButton
+            android:id="@+id/radio_btn_18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/eighteen_percent" />
+
+        <RadioButton
+            android:id="@+id/radio_btn_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/twenty_percent" />
+
+        <RadioButton
+            android:id="@+id/radio_btn_25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/twenty_five_percent" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/add_widget"
+        style="@style/buttonStyle"/>
+
+</LinearLayout>

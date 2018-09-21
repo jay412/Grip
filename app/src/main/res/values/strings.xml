@@ -87,4 +87,13 @@
     <!-- content descriptions -->
     <string name="cd_receipt_image">This is the receipt image</string>
 
+    <!-- widget -->
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure Widget</string>
+    <string name="add_widget">Add widget</string>
+    <string name="fifteen_percent">0.15</string>
+    <string name="eighteen_percent">0.18</string>
+    <string name="twenty_percent">0.20</string>
+    <string name="twenty_five_percent">0.25</string>
+
 </resources>
