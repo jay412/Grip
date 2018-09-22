@@ -112,7 +112,7 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
 
         // Set current item programmatically - set to New Bill tab
         bottomNavigation.setCurrentItem(1);
-        
+
         // Set listeners
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override

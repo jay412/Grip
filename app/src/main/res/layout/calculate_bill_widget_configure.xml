@@ -18,7 +18,7 @@
 
 
     <EditText
-        android:id="@+id/appwidget_text"
+        android:id="@+id/et_widget_tax"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal" />

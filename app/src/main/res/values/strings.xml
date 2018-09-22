@@ -88,7 +88,7 @@
     <string name="cd_receipt_image">This is the receipt image</string>
 
     <!-- widget -->
-    <string name="appwidget_text">EXAMPLE</string>
+    <string name="quick_bill">Quick Bill</string>
     <string name="configure">Configure Widget</string>
     <string name="add_widget">Add widget</string>
     <string name="fifteen_percent">0.15</string>

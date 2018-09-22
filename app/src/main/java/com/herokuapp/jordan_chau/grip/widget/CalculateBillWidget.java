@@ -16,10 +16,12 @@ public class CalculateBillWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        CharSequence widgetText = CalculateBillWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
+        //CharSequence widgetText = CalculateBillWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
+        double tax = Double.valueOf(CalculateBillWidgetConfigureActivity.loadTaxPref(context, appWidgetId));
+        double tip = Double.valueOf(CalculateBillWidgetConfigureActivity.loadTipPref(context, appWidgetId));
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.calculate_bill_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
+        //views.setTextViewText(R.id.appwidget_text, widgetText);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -37,7 +39,7 @@ public class CalculateBillWidget extends AppWidgetProvider {
     public void onDeleted(Context context, int[] appWidgetIds) {
         // When the user deletes the widget, delete the preference associated with it.
         for (int appWidgetId : appWidgetIds) {
-            CalculateBillWidgetConfigureActivity.deleteTitlePref(context, appWidgetId);
+            CalculateBillWidgetConfigureActivity.deleteTaxTipPref(context, appWidgetId);
         }
     }
 
