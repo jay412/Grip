@@ -124,9 +124,10 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
         double subTotal = dataSnapshot.child("subTotal").getValue(Double.class);
         double tax = dataSnapshot.child("tax").getValue(Double.class);
         double tip = dataSnapshot.child("tip").getValue(Double.class);
+        String id = dataSnapshot.child("id").getValue(String.class);
 
         //create receipt object from database data
-        Receipt receipt = new Receipt(date, label, receiptItems, receiptPicture, numPplSharing, tax, tip, subTotal, grandTotal, personPay);
+        Receipt receipt = new Receipt(date, label, receiptItems, receiptPicture, numPplSharing, tax, tip, subTotal, grandTotal, personPay, id);
         mReceipts.add(receipt);
         //refresh recyclerview
         mAdapter = new ReceiptCardAdapter(mReceipts, HistoryFragment.this);
@@ -135,11 +136,9 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
 
     //detects if receipt is deleted from database and refreshes recyclerview
     private void deleteReceipt(DataSnapshot dataSnapshot) {
-        //for(DataSnapshot selectedSnapshot : dataSnapshot.getChildren()) {
-            //TODO need to implement an unique ID field and change this
-            String receiptPicture = dataSnapshot.child("receiptPicture").getValue(String.class);
+            String receiptId = dataSnapshot.getKey();
             for (int x = 0; x < mReceipts.size(); ++x) {
-                if(mReceipts.get(x).getReceiptPicture().equals(receiptPicture)) {
+                if(mReceipts.get(x).getId().equals(receiptId)) {
                     mReceipts.remove(x);
                 }
             }
@@ -147,12 +146,12 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
             mAdapter.notifyDataSetChanged();
             mAdapter = new ReceiptCardAdapter(mReceipts, HistoryFragment.this);
             mReceiptList.setAdapter(mAdapter);
-        //}
     }
 
     //trigger receipt deletion from bottom sheet dialog
-    private void triggerReceiptDeletion(String receiptPicture) {
-        Query receiptQuery = mRef.orderByChild("receiptPicture").equalTo(receiptPicture);
+    private void triggerReceiptDeletion(String receiptId) {
+        //Query receiptQuery = mRef.orderByChild("receiptPicture").equalTo(receiptPicture);
+        Query receiptQuery = mRef.orderByChild("id").equalTo(receiptId);
         receiptQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -195,7 +194,7 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
             @Override
             public void onClick(View view) {
                 //TODO change this to delete based on ID
-                triggerReceiptDeletion(receipt.getReceiptPicture());
+                triggerReceiptDeletion(receipt.getId());
                 mBottomSheetDialog.dismiss();
             }
         });

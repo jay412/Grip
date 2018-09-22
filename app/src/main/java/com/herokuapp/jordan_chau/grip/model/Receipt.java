@@ -17,6 +17,7 @@ public class Receipt implements Parcelable{
     private String mReceiptPicture;
     private int mNumPplSharing;
     private double mTax, mTip, mSubTotal, mGrandTotal, mPersonPay;
+    private String mId;
 
     //used when receipt is created in calculate total dialog fragment
     public Receipt(String label, ArrayList<ReceiptItem> receiptItems, String receiptPicture, int numPplSharing, double tax, double tip) {
@@ -33,7 +34,7 @@ public class Receipt implements Parcelable{
     }
 
     //used when retrieve receipts from database to display in history tab
-    public Receipt(String date, String label, ArrayList<ReceiptItem> receiptItems, String receiptPicture, int numPplSharing, double tax, double tip, double subTotal, double grandTotal, double personPay) {
+    public Receipt(String date, String label, ArrayList<ReceiptItem> receiptItems, String receiptPicture, int numPplSharing, double tax, double tip, double subTotal, double grandTotal, double personPay, String id) {
         mDate = date;
         mLabel = label;
         mReceiptItems = receiptItems;
@@ -44,6 +45,7 @@ public class Receipt implements Parcelable{
         mTip = tip;
         mGrandTotal = grandTotal;
         mPersonPay = personPay;
+        mId = id;
     }
 
     protected Receipt(Parcel in) {
@@ -57,6 +59,7 @@ public class Receipt implements Parcelable{
         mSubTotal = in.readDouble();
         mGrandTotal = in.readDouble();
         mPersonPay = in.readDouble();
+        mId = in.readString();
     }
 
     public static final Creator<Receipt> CREATOR = new Creator<Receipt>() {
@@ -106,6 +109,10 @@ public class Receipt implements Parcelable{
     public double getGrandTotal() { return mGrandTotal; }
 
     public double getPersonPay() { return mPersonPay; }
+
+    public void setId(String id) { mId = id; }
+
+    public String getId() { return mId; }
 
     public void setDate(String date) {
         mDate = date;
@@ -166,6 +173,7 @@ public class Receipt implements Parcelable{
         dest.writeDouble(mSubTotal);
         dest.writeDouble(mGrandTotal);
         dest.writeDouble(mPersonPay);
+        dest.writeString(mId);
     }
 
     public String toString(){
