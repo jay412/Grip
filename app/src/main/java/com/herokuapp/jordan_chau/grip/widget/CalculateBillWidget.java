@@ -3,6 +3,7 @@ package com.herokuapp.jordan_chau.grip.widget;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.herokuapp.jordan_chau.grip.R;
@@ -22,6 +23,8 @@ public class CalculateBillWidget extends AppWidgetProvider {
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.calculate_bill_widget);
         //views.setTextViewText(R.id.appwidget_text, widgetText);
+        Intent intent = new Intent(context, CalculateBillWidgetRemoteViewsService.class);
+        views.setRemoteAdapter(R.id.widget_item_list, intent);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);

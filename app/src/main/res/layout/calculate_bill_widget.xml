@@ -1,4 +1,4 @@
-<!-- TODO change this later -->
+<!-- TODO change this later, need to add TextView for total?-->
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
