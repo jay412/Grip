@@ -185,7 +185,6 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
         (bottomSheetLayout.findViewById(R.id.button_delete)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO change this to delete based on ID
                 triggerReceiptDeletion(receipt.getId());
                 mBottomSheetDialog.dismiss();
             }
