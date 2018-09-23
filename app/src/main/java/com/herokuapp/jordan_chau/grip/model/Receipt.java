@@ -1,7 +1,5 @@
 package com.herokuapp.jordan_chau.grip.model;
 
-import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Parcel;
 import android.os.Parcelable;
 

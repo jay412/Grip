@@ -1,12 +1,10 @@
 package com.herokuapp.jordan_chau.grip.fragments;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -66,7 +64,7 @@ public class CreateNewItemDialogFragment extends DialogFragment {
                             String name = mName.getText().toString();
                             String price = Receipt.roundToMoneyFormat(Double.valueOf(mPrice.getText().toString()));
 
-                            mListener.onDialogPositiveClick(CreateNewItemDialogFragment.this, quantity, name, price);
+                            mListener.onDialogPositiveClick(quantity, name, price);
                         }
                     }
                 })
@@ -84,7 +82,7 @@ public class CreateNewItemDialogFragment extends DialogFragment {
      *
      * This works*/
     public interface CreateNewItemDialogListener {
-        void onDialogPositiveClick(DialogFragment dialog, String quantity, String name, String price);
+        void onDialogPositiveClick(String quantity, String name, String price);
         //public void onDialogNegativeClick(DialogFragment dialog);
         void dialogMissingFields();
     }

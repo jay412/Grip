@@ -1,7 +1,6 @@
 package com.herokuapp.jordan_chau.grip.fragments;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -32,7 +31,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 public class HistoryFragment extends Fragment implements ReceiptCardAdapter.ReceiptItemClickListener{
     @BindView(R.id.rv_receipt_cards) RecyclerView mReceiptList;
@@ -52,12 +50,6 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
         ButterKnife.bind(this, rootView);
 
         mReceiptList.setHasFixedSize(true);
-
-        if(savedInstanceState != null) {
-            //mRecipes = savedInstanceState.getParcelableArrayList("recipes");
-            //mAdapter = new RecipeCardAdapter(mRecipes, this);
-            //mRecipeList.setAdapter(mAdapter);
-        }
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mReceiptList.setLayoutManager(layoutManager);
@@ -162,7 +154,7 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Timber.d("onCancelled%s", databaseError.toException());
+                //Timber.d("onCancelled%s", databaseError.toException());
             }
         });
     }

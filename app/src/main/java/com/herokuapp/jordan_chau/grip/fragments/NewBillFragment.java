@@ -2,7 +2,6 @@ package com.herokuapp.jordan_chau.grip.fragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.FeatureInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -23,7 +22,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.herokuapp.jordan_chau.grip.R;
 import com.herokuapp.jordan_chau.grip.adapters.BillitemAdapter;
@@ -36,7 +34,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 public class NewBillFragment extends Fragment implements NavigationActivity.CreateNewItemCallback, BillitemAdapter.BillItemClickListener{
     @BindView(R.id.fab_add_new_item) FloatingActionButton mAddItem;

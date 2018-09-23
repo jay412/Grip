@@ -23,8 +23,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Timber.plant(new Timber.DebugTree());
         Timber.tag("LoginActivity");
-        //TODO: hide action bar by customizing FirebaseUI
 
         createSignInIntent();
     }
@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                         .createSignInIntentBuilder()
                         .setAvailableProviders(providers)
                         .setLogo(R.drawable.ic_grip_logo)
-                        .setTheme(R.style.AppTheme)
+                        .setTheme(R.style.LoginTheme)
                         .build(),
                 RC_SIGN_IN);
     }
@@ -66,14 +66,15 @@ public class LoginActivity extends AppCompatActivity {
                 // sign-in flow using the back button. Otherwise check
                 // response.getError().getErrorCode() and handle the error.
                 // ...
-                Timber.d("Sign in Error Code: %s", response.getError().getErrorCode());
+                //not sure why pressing back on google sign in displays toast
+                //tried adding implementation 'com.google.android.gms:play-services-auth:16.0.0' but made it displayed a different error toast
+                //Timber.d("Sign in Error Code: %s", response.getError().getErrorCode());
             }
         }
     }
 
     //delete function
     public void delete() {
-        // [START auth_fui_delete]
         AuthUI.getInstance()
                 .delete(this)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -82,7 +83,6 @@ public class LoginActivity extends AppCompatActivity {
                         // ...
                     }
                 });
-        // [END auth_fui_delete]
     }
 
     /* to be implemented in the future

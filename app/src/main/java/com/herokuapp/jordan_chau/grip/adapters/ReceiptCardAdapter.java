@@ -3,7 +3,6 @@ package com.herokuapp.jordan_chau.grip.adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 
 import com.herokuapp.jordan_chau.grip.R;
 import com.herokuapp.jordan_chau.grip.model.Receipt;
-import com.herokuapp.jordan_chau.grip.model.ReceiptItem;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -79,12 +77,8 @@ public class ReceiptCardAdapter extends RecyclerView.Adapter<ReceiptCardAdapter.
         }
 
         void bind(String rImage, String rDate, String rLabel, String rTotal) {
-            try {
-                Bitmap pictureBitmap = decodeFromFirebase64(rImage);
-                receiptImage.setImageBitmap(pictureBitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Bitmap pictureBitmap = decodeFromFirebase64(rImage);
+            receiptImage.setImageBitmap(pictureBitmap);
 
             receiptDate.setText(rDate);
             receiptLabel.setText(rLabel);
@@ -98,7 +92,7 @@ public class ReceiptCardAdapter extends RecyclerView.Adapter<ReceiptCardAdapter.
         }
     }
 
-    private static Bitmap decodeFromFirebase64(String imageUrl) throws IOException {
+    private static Bitmap decodeFromFirebase64(String imageUrl) {
         byte[] decodedByteArray = android.util.Base64.decode(imageUrl, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }

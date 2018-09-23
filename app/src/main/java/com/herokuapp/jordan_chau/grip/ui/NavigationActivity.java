@@ -1,12 +1,10 @@
 package com.herokuapp.jordan_chau.grip.ui;
 
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -147,7 +145,7 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog, String quantity, String name, String price) {
+    public void onDialogPositiveClick(String quantity, String name, String price) {
         if (!quantity.equals("") && !name.equals("") && !price.equals("")) {
             ReceiptItem createdItem = new ReceiptItem(Integer.valueOf(quantity), name, Double.valueOf(price));
 

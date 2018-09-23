@@ -96,4 +96,12 @@
     <string name="twenty_percent">0.20</string>
     <string name="twenty_five_percent">0.25</string>
 
+    <!-- label for -->
+    <string name="label_for_receipt_input">Receipt label input</string>
+    <string name="label_for_sharing_input">Sharing label input</string>
+    <string name="label_for_price_input">Price label input</string>
+    <string name="label_for_quantity_input">Quantity label input</string>
+    <string name="label_for_tax_input">Tax label input</string>
+    <string name="label_for_tip_input">Tip label input</string>
+
 </resources>
