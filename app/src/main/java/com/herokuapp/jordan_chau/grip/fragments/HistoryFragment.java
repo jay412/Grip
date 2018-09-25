@@ -40,6 +40,7 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
     private DatabaseReference mRef;
     private ArrayList<Receipt> mReceipts;
     private BottomSheetDialog mBottomSheetDialog;
+    private ChildEventListener mChildListener;
 
     private static final String RECEIPT_CHILD = "receipts";
 
@@ -67,7 +68,7 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
     }
 
     private void setUpDatabaseListeners() {
-        mRef.addChildEventListener(new ChildEventListener() {
+        mChildListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 getAllReceipts(dataSnapshot);
@@ -93,7 +94,9 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        };
+
+        mRef.addChildEventListener(mChildListener);
     }
 
     private void getAllReceipts(DataSnapshot dataSnapshot) {
@@ -199,5 +202,15 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
         mBottomSheetDialog = new BottomSheetDialog(getActivity());
         mBottomSheetDialog.setContentView(bottomSheetLayout);
         mBottomSheetDialog.show();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        //should remove duplicates in history tab when tip preference is changed
+        if(mChildListener != null) {
+            mRef.removeEventListener(mChildListener);
+        }
     }
 }

@@ -34,6 +34,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class NewBillFragment extends Fragment implements NavigationActivity.CreateNewItemCallback, BillitemAdapter.BillItemClickListener{
     @BindView(R.id.fab_add_new_item) FloatingActionButton mAddItem;
@@ -83,7 +84,6 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
             double tax = getDouble(sharedPreferences, getString(R.string.tax_preference_key), 0.08875);
             boolean tipEnabled = sharedPreferences.getBoolean(getString(R.string.tip_switch_preference_key), false);
 
-            //TODO figure out why enabling/disabling tips causes duplicates in history tab when saved, this does not happen in database
             double tip;
             if(tipEnabled) {
                 tip = getDouble(sharedPreferences, getString(R.string.tip_list_preference_key), 0.15);
@@ -178,12 +178,16 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
 
     @Override
     public void receiveNewItemData(ReceiptItem createdItem) {
+        handleNewItemData(createdItem);
+    }
+
+    private void handleNewItemData(ReceiptItem receivedItem){
         if(mAdapter != null) {
-            mAdapter.addItem(createdItem);
+            mAdapter.addItem(receivedItem);
             mAdapter.notifyItemInserted(mAdapter.getItemCount() - 1);
         } else {
             ArrayList<ReceiptItem> newItemList = new ArrayList<>();
-            newItemList.add(createdItem);
+            newItemList.add(receivedItem);
             mAdapter = new BillitemAdapter(newItemList, this);
 
             //TODO figure out why mItemList could be null
@@ -196,6 +200,18 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
 
             mItemList.setAdapter(mAdapter);
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Timber.d("onPause from dialog");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Timber.d("onResume after dialog");
     }
 
     @Override

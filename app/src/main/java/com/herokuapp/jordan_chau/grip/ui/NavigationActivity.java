@@ -35,6 +35,7 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
 
     private BottomNavBarAdapter mPagerAdapter;
     private int mHistoryCount = 0;
+    private String mCurrentTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,21 +53,22 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
             finish();
         } else {
 
-        mViewPager.setPagingEnabled(false);
-        mPagerAdapter = new BottomNavBarAdapter(getSupportFragmentManager());
+            //if(savedInstanceState == null) {
+                mViewPager.setPagingEnabled(false);
+                mPagerAdapter = new BottomNavBarAdapter(getSupportFragmentManager());
 
-        HistoryFragment historyFragment = new HistoryFragment();
-        NewBillFragment newBillFragment = new NewBillFragment();
-        SettingsFragment settingsFragment = new SettingsFragment();
+                mViewPager.setAdapter(mPagerAdapter);
 
-        mPagerAdapter.addFragments(historyFragment);
-        mPagerAdapter.addFragments(newBillFragment);
-        mPagerAdapter.addFragments(settingsFragment);
+                mViewPager.setCurrentItem(1);
+                mCurrentTitle = getResources().getString(R.string.title_new_bill);
+                setUpBottomNavigationBar();
+            //}
 
-        mViewPager.setAdapter(mPagerAdapter);
-        mViewPager.setCurrentItem(1);
+                //int position = savedInstanceState.getInt("position");
+                //String title = savedInstanceState.getString("title");
 
-        setUpBottomNavigationBar();
+                //mViewPager.setCurrentItem(position);
+                //mCurrentTitle = title;
         }
     }
 
@@ -96,18 +98,6 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
         //don't hide on scroll
         bottomNavigation.setBehaviorTranslationEnabled(false);
 
-        //TODO explore this later
-        // Display color under navigation bar (API 21+)
-        // Don't forget these lines in your style-v21
-        // <item name="android:windowTranslucentNavigation">true</item>
-        // <item name="android:fitsSystemWindows">true</item>
-        //bottomNavigation.setTranslucentNavigationEnabled(true);
-
-        // Manage titles
-        //bottomNavigation.setTitleState(AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE);
-        //bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
-        //bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_HIDE);
-
         // Set current item programmatically - set to New Bill tab
         bottomNavigation.setCurrentItem(1);
 
@@ -121,27 +111,24 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
 
                     switch(position) {
                         case 0:
-                            mTitle.setText(getResources().getString(R.string.title_history));
+                            mCurrentTitle = getResources().getString(R.string.title_history);
+                            mTitle.setText(mCurrentTitle);
                             bottomNavigation.setNotification("", 0);
                             mHistoryCount = 0;
                             break;
                         case 1:
-                            mTitle.setText(getResources().getString(R.string.title_new_bill));
+                            mCurrentTitle = getResources().getString(R.string.title_new_bill);
+                            mTitle.setText(mCurrentTitle);
                             break;
                         case 2:
-                            mTitle.setText(getResources().getString(R.string.title_settings));
+                            mCurrentTitle = getResources().getString(R.string.title_settings);
+                            mTitle.setText(mCurrentTitle);
                             break;
                     }
                 }
                 return true;
             }
         });
-        //TODO explore this later
-        /* bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
-            @Override public void onPositionChange(int y) {
-                // Manage the new y position
-            }
-        }); */
     }
 
     @Override
@@ -171,5 +158,12 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
     public interface CreateNewItemCallback {
         void receiveNewItemData(ReceiptItem createdItem);
         //public void onDialogNegativeClick(DialogFragment dialog);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("position", mViewPager.getCurrentItem());
+        outState.putString("title", mCurrentTitle);
     }
 }
