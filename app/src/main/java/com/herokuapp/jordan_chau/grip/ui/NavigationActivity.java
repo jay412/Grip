@@ -18,9 +18,6 @@ import com.herokuapp.jordan_chau.grip.adapters.BottomNavBarAdapter;
 import com.herokuapp.jordan_chau.grip.adapters.NoSwipePager;
 import com.herokuapp.jordan_chau.grip.fragments.CalculateTotalDialogFragment;
 import com.herokuapp.jordan_chau.grip.fragments.CreateNewItemDialogFragment;
-import com.herokuapp.jordan_chau.grip.fragments.HistoryFragment;
-import com.herokuapp.jordan_chau.grip.fragments.NewBillFragment;
-import com.herokuapp.jordan_chau.grip.fragments.SettingsFragment;
 import com.herokuapp.jordan_chau.grip.model.ReceiptItem;
 
 import butterknife.BindView;
@@ -53,7 +50,6 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
             finish();
         } else {
 
-            //if(savedInstanceState == null) {
                 mViewPager.setPagingEnabled(false);
                 mPagerAdapter = new BottomNavBarAdapter(getSupportFragmentManager());
 
@@ -62,13 +58,6 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
                 mViewPager.setCurrentItem(1);
                 mCurrentTitle = getResources().getString(R.string.title_new_bill);
                 setUpBottomNavigationBar();
-            //}
-
-                //int position = savedInstanceState.getInt("position");
-                //String title = savedInstanceState.getString("title");
-
-                //mViewPager.setCurrentItem(position);
-                //mCurrentTitle = title;
         }
     }
 
@@ -136,7 +125,7 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
         if (!quantity.equals("") && !name.equals("") && !price.equals("")) {
             ReceiptItem createdItem = new ReceiptItem(Integer.valueOf(quantity), name, Double.valueOf(price));
 
-            CreateNewItemCallback callback = (CreateNewItemCallback) mPagerAdapter.getItem(1);
+            CreateNewItemCallback callback = (CreateNewItemCallback) mPagerAdapter.getRegisteredFragment(1);
             callback.receiveNewItemData(createdItem);
         } else {
             Snackbar.make(mLayout, "Check fields and try again.", Snackbar.LENGTH_SHORT).show();
@@ -158,12 +147,5 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
     public interface CreateNewItemCallback {
         void receiveNewItemData(ReceiptItem createdItem);
         //public void onDialogNegativeClick(DialogFragment dialog);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("position", mViewPager.getCurrentItem());
-        outState.putString("title", mCurrentTitle);
     }
 }

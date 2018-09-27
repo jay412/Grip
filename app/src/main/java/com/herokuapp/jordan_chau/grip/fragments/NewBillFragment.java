@@ -43,7 +43,6 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
     @BindView(R.id.iv_receipt_image) ImageView mReceiptImage;
     @BindView(R.id.btn_calculate_total) Button mCalculateTotal;
     @BindView(R.id.et_sharing_input) EditText mSharing;
-    private View rootView;
 
     private BillitemAdapter mAdapter;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -54,7 +53,7 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_new_bill, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_new_bill, container, false);
         ButterKnife.bind(this, rootView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -62,6 +61,14 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
         mItemList.setHasFixedSize(true);
 
         setUpButtons();
+
+        if(savedInstanceState != null) {
+            ArrayList<ReceiptItem> items = savedInstanceState.getParcelableArrayList("items");
+            mAdapter = new BillitemAdapter(items, this);
+            mItemList.setAdapter(mAdapter);
+            mSharing.setText(savedInstanceState.getString("sharing"));
+        }
+
         return rootView;
     }
 
@@ -189,35 +196,20 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
             ArrayList<ReceiptItem> newItemList = new ArrayList<>();
             newItemList.add(receivedItem);
             mAdapter = new BillitemAdapter(newItemList, this);
-
-            //TODO figure out why mItemList could be null
-            if (mItemList == null) {
-                mItemList = rootView.findViewById(R.id.rv_item_list);
-                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                mItemList.setLayoutManager(layoutManager);
-                mItemList.setHasFixedSize(true);
-            }
-
             mItemList.setAdapter(mAdapter);
         }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Timber.d("onPause from dialog");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Timber.d("onResume after dialog");
     }
 
     @Override
     public void onBillItemClicked(int clickedItemIndex) {
         mAdapter.removeItem(clickedItemIndex);
         mAdapter.notifyItemRemoved(clickedItemIndex);
-        //mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("items", mAdapter.getItems());
+        outState.putString("sharing", mSharing.getText().toString());
     }
 }
