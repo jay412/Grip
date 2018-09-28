@@ -1,5 +1,6 @@
 package com.herokuapp.jordan_chau.grip.widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.herokuapp.jordan_chau.grip.R;
+import com.herokuapp.jordan_chau.grip.model.Receipt;
 
 /**
  * Implementation of App Widget functionality.
@@ -24,6 +26,9 @@ public class CalculateBillWidget extends AppWidgetProvider {
         String grandtotal = "$" + CalculateBillWidgetConfigureActivity.loadGrandTotalPref(context, appWidgetId);
         String personPay = "$" + CalculateBillWidgetConfigureActivity.loadPersonPayPref(context, appWidgetId);
 
+        Receipt emailCopy = new Receipt("", "", null, "", 1,
+                Double.valueOf(tax), Double.valueOf(tip), Double.valueOf(subtotal), Double.valueOf(grandtotal), Double.valueOf(personPay), "");
+
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.calculate_bill_widget);
 
@@ -35,6 +40,11 @@ public class CalculateBillWidget extends AppWidgetProvider {
 
         //Intent intent = new Intent(context, CalculateBillWidgetRemoteViewsService.class);
         //views.setRemoteAdapter(R.id.widget_item_list, intent);
+        Intent emailIntent = new Intent(context, SendEmailIntentService.class);
+        emailIntent.putExtra("receipt", emailCopy);
+        emailIntent.setAction(SendEmailIntentService.ACTION_SEND_EMAIL);
+        PendingIntent emailPendingIntent = PendingIntent.getService(context, 0, emailIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setOnClickPendingIntent(R.id.btn_widget_email, emailPendingIntent);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);

@@ -174,17 +174,22 @@ public class Receipt implements Parcelable{
         dest.writeString(mId);
     }
 
+    //TODO add date
     public String toString(){
-        String details = "Item List:" + "\n";
+        String details = "";
 
-        for(ReceiptItem currentItem : mReceiptItems) {
-            String quantity = Integer.toString(currentItem.getQuantity());
-            String name = currentItem.getName();
-            String price = Double.toString(currentItem.getPrice());
+        if(mReceiptItems != null) {
+            details += "Item List:" + "\n";
 
-            details += "Quantity: " + quantity + "\n";
-            details += "Name: " + name + "\n";
-            details += "Price: $" + price + "\n\n";
+            for (ReceiptItem currentItem : mReceiptItems) {
+                String quantity = Integer.toString(currentItem.getQuantity());
+                String name = currentItem.getName();
+                String price = Double.toString(currentItem.getPrice());
+
+                details += "Quantity: " + quantity + "\n";
+                details += "Name: " + name + "\n";
+                details += "Price: $" + price + "\n\n";
+            }
         }
 
         details += "\n" + "Subtotal: $" + roundToMoneyFormat(mSubTotal) + "\n";

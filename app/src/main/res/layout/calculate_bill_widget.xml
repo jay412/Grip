@@ -126,7 +126,7 @@
         android:textColor="@color/white"/>
 
     <Button
-        android:id="@+id/btn_widget_calculate_total"
+        android:id="@+id/btn_widget_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
