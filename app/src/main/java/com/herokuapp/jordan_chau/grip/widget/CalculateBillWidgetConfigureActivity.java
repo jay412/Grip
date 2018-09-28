@@ -83,11 +83,11 @@ public class CalculateBillWidgetConfigureActivity extends Activity implements Bi
     // Write the prefix to the SharedPreferences object for this widget
     static void savePrefs(Context context, int appWidgetId, Receipt receipt) {
         SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
-        prefs.putString(PREF_PREFIX_KEY + appWidgetId + SUF_TAX_KEY, Double.toString(receipt.getTax()));
-        prefs.putString(PREF_PREFIX_KEY + appWidgetId + SUF_TIP_KEY, Double.toString(receipt.getTip()));
-        prefs.putString("subtotal", Double.toString(receipt.getSubTotal()));
-        prefs.putString("grandtotal", Double.toString(receipt.getGrandTotal()));
-        prefs.putString("peoplePay", Double.toString(receipt.getPersonPay()));
+        prefs.putString(PREF_PREFIX_KEY + appWidgetId + SUF_TAX_KEY, Receipt.roundToMoneyFormat(receipt.getTax()));
+        prefs.putString(PREF_PREFIX_KEY + appWidgetId + SUF_TIP_KEY, Receipt.roundToMoneyFormat(receipt.getTip()));
+        prefs.putString("subtotal", Receipt.roundToMoneyFormat(receipt.getSubTotal()));
+        prefs.putString("grandtotal", Receipt.roundToMoneyFormat(receipt.getGrandTotal()));
+        prefs.putString("peoplePay", Receipt.roundToMoneyFormat(receipt.getPersonPay()));
         prefs.apply();
     }
 
@@ -136,7 +136,7 @@ public class CalculateBillWidgetConfigureActivity extends Activity implements Bi
     //TODO why value = 0
     static String loadPersonPayPref(Context context, int appWidgetId) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
-        String personPay = prefs.getString("personPay", null);
+        String personPay = prefs.getString("peoplePay", null);
         if (personPay != null) {
             return personPay;
         } else {

@@ -18,11 +18,11 @@ public class CalculateBillWidget extends AppWidgetProvider {
                                 int appWidgetId) {
 
         //TODO round values
-        String subtotal = CalculateBillWidgetConfigureActivity.loadSubTotalPref(context, appWidgetId);
-        String tax = CalculateBillWidgetConfigureActivity.loadTaxPref(context, appWidgetId);
-        String tip = CalculateBillWidgetConfigureActivity.loadTipPref(context, appWidgetId);
-        String grandtotal = CalculateBillWidgetConfigureActivity.loadGrandTotalPref(context, appWidgetId);
-        String personPay = CalculateBillWidgetConfigureActivity.loadPersonPayPref(context, appWidgetId);
+        String subtotal = "$" + CalculateBillWidgetConfigureActivity.loadSubTotalPref(context, appWidgetId);
+        String tax = "$" + CalculateBillWidgetConfigureActivity.loadTaxPref(context, appWidgetId);
+        String tip = "$" + CalculateBillWidgetConfigureActivity.loadTipPref(context, appWidgetId);
+        String grandtotal = "$" + CalculateBillWidgetConfigureActivity.loadGrandTotalPref(context, appWidgetId);
+        String personPay = "$" + CalculateBillWidgetConfigureActivity.loadPersonPayPref(context, appWidgetId);
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.calculate_bill_widget);

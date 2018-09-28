@@ -25,7 +25,7 @@
     <string name="tax">Tax: </string>
     <string name="tip">Tip: </string>
     <string name="grand_total">Grand Total: </string>
-    <string name="each_person_should_pay">Each person should pay: </string>
+    <string name="each_person_should_pay">Each should pay: </string>
     <string name="save">Save</string>
     <string name="email">Email</string>
     <string name="close">Close</string>

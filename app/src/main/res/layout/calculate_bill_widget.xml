@@ -21,7 +21,8 @@
         android:layout_marginTop="16dp"
         android:text="@string/subtotal"
         android:layout_below="@+id/tv_widget_title"
-        android:layout_toStartOf="@+id/tv_widget_item_subtotal"/>
+        android:layout_toStartOf="@+id/tv_widget_item_subtotal"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/tv_widget_item_subtotal"
@@ -32,7 +33,8 @@
         android:hint="@string/hint_total"
         android:text="@string/hint_total"
         android:layout_below="@+id/tv_widget_title"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/tv_tax"
@@ -42,7 +44,8 @@
         android:layout_marginEnd="16dp"
         android:text="@string/tax"
         android:layout_below="@+id/tv_widget_item_subtotal"
-        android:layout_toStartOf="@+id/tv_widget_item_tax" />
+        android:layout_toStartOf="@+id/tv_widget_item_tax"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/tv_widget_item_tax"
@@ -52,7 +55,8 @@
         android:layout_marginTop="16dp"
         android:text="@string/hint_total"
         android:layout_below="@+id/tv_widget_item_subtotal"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/tv_tip"
@@ -62,7 +66,8 @@
         android:layout_marginEnd="16dp"
         android:text="@string/tip"
         android:layout_below="@+id/tv_widget_item_tax"
-        android:layout_toStartOf="@+id/tv_widget_item_tip" />
+        android:layout_toStartOf="@+id/tv_widget_item_tip"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/tv_widget_item_tip"
@@ -72,7 +77,8 @@
         android:layout_marginTop="16dp"
         android:layout_below="@+id/tv_widget_item_tax"
         android:layout_alignParentEnd="true"
-        android:text="@string/hint_total"/>
+        android:text="@string/hint_total"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/tv_grand_total"
@@ -82,7 +88,8 @@
         android:layout_marginEnd="16dp"
         android:text="@string/grand_total"
         android:layout_below="@+id/tv_widget_item_tip"
-        android:layout_toStartOf="@+id/tv_widget_item_grand_total" />
+        android:layout_toStartOf="@+id/tv_widget_item_grand_total"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/tv_widget_item_grand_total"
@@ -92,7 +99,8 @@
         android:layout_marginTop="16dp"
         android:layout_below="@+id/tv_widget_item_tip"
         android:layout_alignParentEnd="true"
-        android:text="@string/hint_total"/>
+        android:text="@string/hint_total"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/tv_person_pay"
@@ -100,9 +108,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:text="@string/each_person_should_pay"
         android:layout_below="@+id/tv_widget_item_grand_total"
-        android:layout_toStartOf="@+id/tv_widget_item_person_pay" />
+        android:layout_toStartOf="@+id/tv_widget_item_person_pay"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/tv_widget_item_person_pay"
@@ -112,16 +122,16 @@
         android:layout_marginTop="16dp"
         android:layout_below="@+id/tv_widget_item_grand_total"
         android:layout_alignParentEnd="true"
-        android:text="@string/hint_total"/>
+        android:text="@string/hint_total"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/btn_widget_calculate_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/calculate_total"
+        android:layout_marginTop="16dp"
+        android:text="@string/email"
         style="@style/buttonStyle"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>
