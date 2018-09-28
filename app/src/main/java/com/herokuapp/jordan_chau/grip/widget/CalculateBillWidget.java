@@ -17,12 +17,22 @@ public class CalculateBillWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        //CharSequence widgetText = CalculateBillWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
-        double tax = Double.valueOf(CalculateBillWidgetConfigureActivity.loadTaxPref(context, appWidgetId));
-        double tip = Double.valueOf(CalculateBillWidgetConfigureActivity.loadTipPref(context, appWidgetId));
+        //TODO round values
+        String subtotal = CalculateBillWidgetConfigureActivity.loadSubTotalPref(context, appWidgetId);
+        String tax = CalculateBillWidgetConfigureActivity.loadTaxPref(context, appWidgetId);
+        String tip = CalculateBillWidgetConfigureActivity.loadTipPref(context, appWidgetId);
+        String grandtotal = CalculateBillWidgetConfigureActivity.loadGrandTotalPref(context, appWidgetId);
+        String personPay = CalculateBillWidgetConfigureActivity.loadPersonPayPref(context, appWidgetId);
+
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.calculate_bill_widget);
-        //views.setTextViewText(R.id.appwidget_text, widgetText);
+
+        views.setTextViewText(R.id.tv_widget_item_subtotal, subtotal);
+        views.setTextViewText(R.id.tv_widget_item_tax, tax);
+        views.setTextViewText(R.id.tv_widget_item_tip, tip);
+        views.setTextViewText(R.id.tv_widget_item_grand_total, grandtotal);
+        views.setTextViewText(R.id.tv_widget_item_person_pay, personPay);
+
         //Intent intent = new Intent(context, CalculateBillWidgetRemoteViewsService.class);
         //views.setRemoteAdapter(R.id.widget_item_list, intent);
 

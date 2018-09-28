@@ -187,9 +187,9 @@ public class Receipt implements Parcelable{
             details += "Price: $" + price + "\n\n";
         }
 
-        details += "\n" + "Subtotal: $" + mSubTotal + "\n";
+        details += "\n" + "Subtotal: $" + roundToMoneyFormat(mSubTotal) + "\n";
         details += "Tax: $" + roundToMoneyFormat(mTax) + "\n";
-        details += "Tip: $" + mTip + "\n";
+        details += "Tip: $" + roundToMoneyFormat(mTip) + "\n";
         details += "Grand Total: $" + roundToMoneyFormat(mGrandTotal) + "\n";
         details += "Number of People Sharing: " + mNumPplSharing + "\n";
         details += "Each person should pay: $" + roundToMoneyFormat(mPersonPay) + "\n";

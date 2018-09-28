@@ -21,10 +21,10 @@
         android:layout_marginTop="16dp"
         android:text="@string/subtotal"
         android:layout_below="@+id/tv_widget_title"
-        android:layout_toStartOf="@+id/tv_item_subtotal"/>
+        android:layout_toStartOf="@+id/tv_widget_item_subtotal"/>
 
     <TextView
-        android:id="@+id/tv_item_subtotal"
+        android:id="@+id/tv_widget_item_subtotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -41,17 +41,17 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/tax"
-        android:layout_below="@+id/tv_item_subtotal"
-        android:layout_toStartOf="@+id/tv_item_tax" />
+        android:layout_below="@+id/tv_widget_item_subtotal"
+        android:layout_toStartOf="@+id/tv_widget_item_tax" />
 
     <TextView
-        android:id="@+id/tv_item_tax"
+        android:id="@+id/tv_widget_item_tax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/hint_total"
-        android:layout_below="@+id/tv_item_subtotal"
+        android:layout_below="@+id/tv_widget_item_subtotal"
         android:layout_alignParentEnd="true"/>
 
     <TextView
@@ -61,16 +61,16 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/tip"
-        android:layout_below="@+id/tv_item_tax"
-        android:layout_toStartOf="@+id/tv_item_tip" />
+        android:layout_below="@+id/tv_widget_item_tax"
+        android:layout_toStartOf="@+id/tv_widget_item_tip" />
 
     <TextView
-        android:id="@+id/tv_item_tip"
+        android:id="@+id/tv_widget_item_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:layout_below="@+id/tv_item_tax"
+        android:layout_below="@+id/tv_widget_item_tax"
         android:layout_alignParentEnd="true"
         android:text="@string/hint_total"/>
 
@@ -81,16 +81,16 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/grand_total"
-        android:layout_below="@+id/tv_item_tip"
-        android:layout_toStartOf="@+id/tv_item_grand_total" />
+        android:layout_below="@+id/tv_widget_item_tip"
+        android:layout_toStartOf="@+id/tv_widget_item_grand_total" />
 
     <TextView
-        android:id="@+id/tv_item_grand_total"
+        android:id="@+id/tv_widget_item_grand_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:layout_below="@+id/tv_item_tip"
+        android:layout_below="@+id/tv_widget_item_tip"
         android:layout_alignParentEnd="true"
         android:text="@string/hint_total"/>
 
@@ -101,16 +101,16 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/each_person_should_pay"
-        android:layout_below="@+id/tv_item_grand_total"
-        android:layout_toStartOf="@+id/tv_item_person_pay" />
+        android:layout_below="@+id/tv_widget_item_grand_total"
+        android:layout_toStartOf="@+id/tv_widget_item_person_pay" />
 
     <TextView
-        android:id="@+id/tv_item_person_pay"
+        android:id="@+id/tv_widget_item_person_pay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:layout_below="@+id/tv_item_grand_total"
+        android:layout_below="@+id/tv_widget_item_grand_total"
         android:layout_alignParentEnd="true"
         android:text="@string/hint_total"/>
 

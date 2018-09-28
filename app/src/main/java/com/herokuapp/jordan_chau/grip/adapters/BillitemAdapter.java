@@ -14,8 +14,6 @@ import com.herokuapp.jordan_chau.grip.model.ReceiptItem;
 import java.util.ArrayList;
 
 public class BillitemAdapter extends RecyclerView.Adapter<BillitemAdapter.ItemViewHolder>{
-    //private static final String TAG = BillitemAdapter.class.getSimpleName();
-
     private int mNumberItems;
     private ArrayList<ReceiptItem> mItems;
     final private BillitemAdapter.BillItemClickListener mOnClickListener;
