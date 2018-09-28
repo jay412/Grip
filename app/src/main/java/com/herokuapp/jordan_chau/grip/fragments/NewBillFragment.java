@@ -170,13 +170,13 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
 
     private boolean areInputsValid(){
         if(mAdapter == null || mAdapter.getItemCount() < 1) {
-            Snackbar.make(getActivity().findViewById(R.id.coordinator), "Create some items before calculating total", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(getActivity().findViewById(R.id.coordinator), getResources().getString(R.string.create_item_error), Snackbar.LENGTH_LONG).show();
             return false;
         } else if (mSharing.getText().toString().equals("0")) {
-            Snackbar.make(getActivity().findViewById(R.id.coordinator), "The number of people sharing must be one or more", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(getActivity().findViewById(R.id.coordinator), getResources().getString(R.string.people_sharing_valid_input), Snackbar.LENGTH_LONG).show();
             return false;
         } else if (mSharing.getText().toString().isEmpty()) {
-            Snackbar.make(getActivity().findViewById(R.id.coordinator), "Please provide a value for number of people sharing", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(getActivity().findViewById(R.id.coordinator), getResources().getString(R.string.people_sharing_empty), Snackbar.LENGTH_LONG).show();
             return false;
         } else {
             return true;
@@ -209,7 +209,9 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList("items", mAdapter.getItems());
-        outState.putString("sharing", mSharing.getText().toString());
+        if(mAdapter != null) {
+            outState.putParcelableArrayList("items", mAdapter.getItems());
+            outState.putString("sharing", mSharing.getText().toString());
+        }
     }
 }

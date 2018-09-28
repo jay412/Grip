@@ -128,13 +128,13 @@ public class NavigationActivity extends AppCompatActivity implements CreateNewIt
             CreateNewItemCallback callback = (CreateNewItemCallback) mPagerAdapter.getRegisteredFragment(1);
             callback.receiveNewItemData(createdItem);
         } else {
-            Snackbar.make(mLayout, "Check fields and try again.", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(mLayout, getResources().getString(R.string.add_item_fields_empty), Snackbar.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void dialogMissingFields() {
-        Snackbar.make(mLayout, "Please fill in the missing fields", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(mLayout, getResources().getString(R.string.missing_fields), Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

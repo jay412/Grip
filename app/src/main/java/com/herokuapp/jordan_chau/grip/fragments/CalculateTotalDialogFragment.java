@@ -98,7 +98,7 @@ public class CalculateTotalDialogFragment extends DialogFragment {
 
                             //mReceiptRef.push().setValue(receipt.getId());
 
-                            Snackbar.make(getActivity().findViewById(R.id.coordinator), "Saved!", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(getActivity().findViewById(R.id.coordinator), getResources().getString(R.string.saved), Snackbar.LENGTH_SHORT).show();
                             mListener.onCalculateTotalDialogPositiveClick();
                         }
                     })
@@ -107,7 +107,7 @@ public class CalculateTotalDialogFragment extends DialogFragment {
                         public void onClick(DialogInterface dialog, int id) {
                             String receiptDetails = receipt.toString();
 
-                            startActivity(Intent.createChooser(setUpEmailIntent(receiptDetails), "Send an email"));
+                            startActivity(Intent.createChooser(setUpEmailIntent(receiptDetails), getResources().getString(R.string.send_email)));
                         }
                     })
                     .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

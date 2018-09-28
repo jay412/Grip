@@ -86,6 +86,7 @@
 
     <!-- content descriptions -->
     <string name="cd_receipt_image">This is the receipt image</string>
+    <string name="cd_add_item">This button adds items to bill list</string>
 
     <!-- widget -->
     <string name="quick_bill">Quick Bill</string>
@@ -103,5 +104,16 @@
     <string name="label_for_quantity_input">Quantity label input</string>
     <string name="label_for_tax_input">Tax label input</string>
     <string name="label_for_tip_input">Tip label input</string>
+
+    <!-- snackbar -->
+    <string name="create_item_error">Create some items before calculating total</string>
+    <string name="people_sharing_valid_input">The number of people sharing must be one or more</string>
+    <string name="people_sharing_empty">Please provide a value for number of people sharing</string>
+    <string name="saved">Saved!</string>
+    <string name="add_item_fields_empty">Check fields and try again.</string>
+    <string name="missing_fields">Please fill in the missing fields</string>
+
+    <!-- email intent -->
+    <string name="send_email">Send an email</string>
 
 </resources>

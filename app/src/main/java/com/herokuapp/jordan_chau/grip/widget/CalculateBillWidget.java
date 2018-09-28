@@ -23,8 +23,8 @@ public class CalculateBillWidget extends AppWidgetProvider {
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.calculate_bill_widget);
         //views.setTextViewText(R.id.appwidget_text, widgetText);
-        Intent intent = new Intent(context, CalculateBillWidgetRemoteViewsService.class);
-        views.setRemoteAdapter(R.id.widget_item_list, intent);
+        //Intent intent = new Intent(context, CalculateBillWidgetRemoteViewsService.class);
+        //views.setRemoteAdapter(R.id.widget_item_list, intent);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);

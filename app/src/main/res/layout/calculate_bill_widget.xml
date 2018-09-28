@@ -1,6 +1,4 @@
-<!-- TODO change this later, need to add TextView for total?-->
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/widget_margin"
@@ -15,52 +13,106 @@
         android:textAlignment="center"
         android:background="@color/colorPrimaryDark"/>
 
-    <ListView
-        android:id="@+id/widget_item_list"
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_widget_title"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/border">
-    </ListView>
-
-    <Button
-        android:id="@+id/btn_widget_add_new_item"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/et_widget_price_input"
-        android:background="@android:drawable/ic_input_add"/>
-
     <TextView
-        android:id="@+id/tv_widget_sharing_label"
+        android:id="@+id/tv_subtotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginStart="84dp"
-        android:text="@string/num_ppl_sharing"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/btn_widget_calculate_total"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/subtotal"
+        android:layout_below="@+id/tv_widget_title"
+        android:layout_toStartOf="@+id/tv_item_subtotal"/>
 
-    <EditText
-        android:id="@+id/et_widget_sharing_input"
-        android:layout_width="42dp"
+    <TextView
+        android:id="@+id/tv_item_subtotal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginStart="16dp"
-        android:ems="10"
-        android:inputType="number"
-        android:textColor="@color/white"
-        android:text="@string/num_ppl_sharing_default_value"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/btn_widget_calculate_total"
-        app:layout_constraintStart_toEndOf="@+id/tv_widget_sharing_label"
-        android:labelFor="@string/label_for_sharing_input"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/hint_total"
+        android:text="@string/hint_total"
+        android:layout_below="@+id/tv_widget_title"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:id="@+id/tv_tax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/tax"
+        android:layout_below="@+id/tv_item_subtotal"
+        android:layout_toStartOf="@+id/tv_item_tax" />
+
+    <TextView
+        android:id="@+id/tv_item_tax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/hint_total"
+        android:layout_below="@+id/tv_item_subtotal"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:id="@+id/tv_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/tip"
+        android:layout_below="@+id/tv_item_tax"
+        android:layout_toStartOf="@+id/tv_item_tip" />
+
+    <TextView
+        android:id="@+id/tv_item_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/tv_item_tax"
+        android:layout_alignParentEnd="true"
+        android:text="@string/hint_total"/>
+
+    <TextView
+        android:id="@+id/tv_grand_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/grand_total"
+        android:layout_below="@+id/tv_item_tip"
+        android:layout_toStartOf="@+id/tv_item_grand_total" />
+
+    <TextView
+        android:id="@+id/tv_item_grand_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/tv_item_tip"
+        android:layout_alignParentEnd="true"
+        android:text="@string/hint_total"/>
+
+    <TextView
+        android:id="@+id/tv_person_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/each_person_should_pay"
+        android:layout_below="@+id/tv_item_grand_total"
+        android:layout_toStartOf="@+id/tv_item_person_pay" />
+
+    <TextView
+        android:id="@+id/tv_item_person_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/tv_item_grand_total"
+        android:layout_alignParentEnd="true"
+        android:text="@string/hint_total"/>
 
     <Button
         android:id="@+id/btn_widget_calculate_total"
@@ -70,67 +122,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/calculate_total"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        style="@style/buttonStyle"/>
+        style="@style/buttonStyle"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 
-    <EditText
-        android:id="@+id/et_widget_price_input"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@+id/fab_widget_add_new_item"
-        app:layout_constraintTop_toBottomOf="@+id/tv_widget_price"
-        android:labelFor="@string/label_for_price_input"/>
-
-    <EditText
-        android:id="@+id/et_widget_quantity_input"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toStartOf="@+id/et_widget_price_input"
-        app:layout_constraintTop_toBottomOf="@+id/tv_widget_quantity"
-        android:labelFor="@string/label_for_quantity_input"/>
-
-    <TextView
-        android:id="@+id/tv_widget_quantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/quantity"
-        app:layout_constraintStart_toStartOf="@+id/et_widget_quantity_input"
-        app:layout_constraintTop_toBottomOf="@+id/widget_item_list" />
-
-    <TextView
-        android:id="@+id/tv_widget_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/price"
-        app:layout_constraintStart_toStartOf="@+id/et_widget_price_input"
-        app:layout_constraintTop_toBottomOf="@+id/widget_item_list" />
-
-    <!-- <TextView
-        android:id="@+id/appwidget_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="8dp"
-        android:background="#09C"
-        android:contentDescription="@string/appwidget_text"
-        android:text="@string/appwidget_text"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" /> -->
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

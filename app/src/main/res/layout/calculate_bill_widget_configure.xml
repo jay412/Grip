@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -11,10 +12,63 @@
         android:layout_marginBottom="16dp"
         android:text="@string/configure" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_item_list"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/border">
+    </android.support.v7.widget.RecyclerView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/quantity" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price"
+            android:layout_gravity="center_horizontal"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_quantity" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_total"
+            android:layout_gravity="center_horizontal"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_widget_add_new_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            app:srcCompat="@android:drawable/ic_input_add"
+            android:focusable="true"
+            android:layout_gravity="end"
+            android:contentDescription="@string/cd_add_item"/>
+    </FrameLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/set_tax_rate" />
+        android:text="@string/set_tax_rate"
+        android:layout_marginTop="16dp"/>
 
 
     <EditText
@@ -75,6 +129,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/add_widget"
-        style="@style/buttonStyle"/>
+        style="@style/buttonStyle"
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>
