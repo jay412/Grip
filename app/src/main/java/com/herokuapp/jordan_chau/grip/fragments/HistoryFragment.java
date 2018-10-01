@@ -145,7 +145,6 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
 
     //trigger receipt deletion from bottom sheet dialog
     private void triggerReceiptDeletion(String receiptId) {
-        //Query receiptQuery = mRef.orderByChild("receiptPicture").equalTo(receiptPicture);
         Query receiptQuery = mRef.orderByChild("id").equalTo(receiptId);
         receiptQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -195,7 +194,7 @@ public class HistoryFragment extends Fragment implements ReceiptCardAdapter.Rece
         (bottomSheetLayout.findViewById(R.id.button_email)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(Intent.createChooser(CalculateTotalDialogFragment.setUpEmailIntent(receiptDetails), "Send Email"));
+                startActivity(Intent.createChooser(CalculateTotalDialogFragment.setUpEmailIntent(receiptDetails), getResources().getString(R.string.send_email)));
                 }
         });
 

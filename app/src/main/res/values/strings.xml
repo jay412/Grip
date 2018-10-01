@@ -50,6 +50,7 @@
     <string name="version_stylish_preference_key">version_stylish_preference</string>
     <string name="logout_preference_key">logout_preference</string>
 
+    <string name="explore_tax_rates">Explore Tax Rates</string>
     <string name="setting_account">Account</string>
     <string name="setting_security">Security</string>
     <string name="setting_device">Device</string>

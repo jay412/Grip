@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.herokuapp.jordan_chau.grip.R;
+import com.herokuapp.jordan_chau.grip.fragments.CalculateTotalDialogFragment;
 import com.herokuapp.jordan_chau.grip.model.Receipt;
 
 /**
@@ -20,31 +21,28 @@ public class CalculateBillWidget extends AppWidgetProvider {
                                 int appWidgetId) {
 
         //TODO round values
-        String subtotal = "$" + CalculateBillWidgetConfigureActivity.loadSubTotalPref(context, appWidgetId);
-        String tax = "$" + CalculateBillWidgetConfigureActivity.loadTaxPref(context, appWidgetId);
-        String tip = "$" + CalculateBillWidgetConfigureActivity.loadTipPref(context, appWidgetId);
-        String grandtotal = "$" + CalculateBillWidgetConfigureActivity.loadGrandTotalPref(context, appWidgetId);
-        String personPay = "$" + CalculateBillWidgetConfigureActivity.loadPersonPayPref(context, appWidgetId);
+        String subtotal =  CalculateBillWidgetConfigureActivity.loadSubTotalPref(context, appWidgetId);
+        String tax = CalculateBillWidgetConfigureActivity.loadTaxPref(context, appWidgetId);
+        String tip = CalculateBillWidgetConfigureActivity.loadTipPref(context, appWidgetId);
+        String grandtotal = CalculateBillWidgetConfigureActivity.loadGrandTotalPref(context, appWidgetId);
+        String personPay = CalculateBillWidgetConfigureActivity.loadPersonPayPref(context, appWidgetId);
 
+        //TODO add num people sharing, fix rounding error --> preference already rounded
         Receipt emailCopy = new Receipt("", "", null, "", 1,
                 Double.valueOf(tax), Double.valueOf(tip), Double.valueOf(subtotal), Double.valueOf(grandtotal), Double.valueOf(personPay), "");
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.calculate_bill_widget);
 
-        views.setTextViewText(R.id.tv_widget_item_subtotal, subtotal);
-        views.setTextViewText(R.id.tv_widget_item_tax, tax);
-        views.setTextViewText(R.id.tv_widget_item_tip, tip);
-        views.setTextViewText(R.id.tv_widget_item_grand_total, grandtotal);
-        views.setTextViewText(R.id.tv_widget_item_person_pay, personPay);
+        views.setTextViewText(R.id.tv_widget_item_subtotal, "$" + subtotal);
+        views.setTextViewText(R.id.tv_widget_item_tax, "$" + tax);
+        views.setTextViewText(R.id.tv_widget_item_tip, "$" + tip);
+        views.setTextViewText(R.id.tv_widget_item_grand_total, "$" + grandtotal);
+        views.setTextViewText(R.id.tv_widget_item_person_pay, "$" + personPay);
 
-        //Intent intent = new Intent(context, CalculateBillWidgetRemoteViewsService.class);
-        //views.setRemoteAdapter(R.id.widget_item_list, intent);
-        Intent emailIntent = new Intent(context, SendEmailIntentService.class);
-        emailIntent.putExtra("receipt", emailCopy);
-        emailIntent.setAction(SendEmailIntentService.ACTION_SEND_EMAIL);
-        PendingIntent emailPendingIntent = PendingIntent.getService(context, 0, emailIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        views.setOnClickPendingIntent(R.id.btn_widget_email, emailPendingIntent);
+        Intent emailIntent = CalculateTotalDialogFragment.setUpEmailIntent(emailCopy.toString());
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, Intent.createChooser(emailIntent, "Send an Email"), 0);
+        views.setOnClickPendingIntent(R.id.btn_widget_email, pendingIntent);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);

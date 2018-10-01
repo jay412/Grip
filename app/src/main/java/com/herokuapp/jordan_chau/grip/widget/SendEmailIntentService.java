@@ -45,6 +45,6 @@ public class SendEmailIntentService extends IntentService{
 
     private void handleActionSendEmail(Receipt receipt){
         final String receiptDetails = receipt.toString();
-        startActivity(Intent.createChooser(CalculateTotalDialogFragment.setUpEmailIntent(receiptDetails), getResources().getString(R.string.send_email)));
+        //startActivity(Intent.createChooser(CalculateTotalDialogFragment.setUpEmailIntent(receiptDetails), getResources().getString(R.string.send_email)));
     }
 }
