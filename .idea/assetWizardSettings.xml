@@ -14,11 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="720" />
-                            <entry key="outputName" value="ic_grip_logo" />
-                            <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\Jor\Desktop\Grip Logo.svg" />
-                            <entry key="width" value="960" />
+                            <entry key="outputName" value="ic_baseline_arrow_back_24px" />
+                            <entry key="sourceFile" value="C:\Users\Jor\Desktop\baseline-arrow_back-24px.svg" />
                           </map>
                         </option>
                       </PersistentState>

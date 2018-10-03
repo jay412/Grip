@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ExploreTaxActivity">
+        <activity android:name=".ui.ExploreTaxActivity">
 
             <intent-filter>
                 <action android:name="launch.explore.activity"/>

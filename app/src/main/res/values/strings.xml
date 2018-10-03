@@ -77,6 +77,14 @@
         <item>0.25</item>
     </string-array>
 
+    <!-- Explore Tax Page -->
+    <string name="enter_zip_code">Enter your zip code to find your area\'s tax rate</string>
+    <string name="zip_code_hint">14228</string>
+    <string name="find_tax_rate">Find Tax Rate</string>
+    <string name="copy_tax_rate_and_change_setting">Copy tax rate below into settings</string>
+    <string name="please_wait">Please wait ...</string>
+    <string name="connection_error">Please check your internet connection and try again.</string>
+
     <!-- hint strings -->
     <string name="hint_date">09/13/2018</string>
     <string name="hint_quantity">20</string>
