@@ -1,11 +1,14 @@
 package com.herokuapp.jordan_chau.grip.ui;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -23,6 +26,8 @@ public class ExploreTaxActivity extends AppCompatActivity {
     @BindView(R.id.tv_copy_tax_rate_instruction) TextView mInstructions;
     @BindView(R.id.et_tax_rate_input) EditText mInput;
     @BindView(R.id.explore_tax_coordinator) CoordinatorLayout mLayout;
+    @BindView(R.id.btn_save_tax) Button mSave;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +88,7 @@ public class ExploreTaxActivity extends AppCompatActivity {
                 mTaxRate.setText(rate);
                 mTaxRate.setVisibility(View.VISIBLE);
                 mInstructions.setVisibility(View.VISIBLE);
+                mSave.setVisibility(View.VISIBLE);
             } else {
                 NetworkUtility.showErrorMessage(mLayout);
             }
@@ -91,5 +97,10 @@ public class ExploreTaxActivity extends AppCompatActivity {
 
     public void goBack(View v){
         finish();
+    }
+
+    public void saveTaxRate(View v) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences.edit().putString(getString(R.string.tax_preference_key), mTaxRate.getText().toString()).apply();
     }
 }

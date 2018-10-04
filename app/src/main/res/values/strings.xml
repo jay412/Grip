@@ -124,5 +124,7 @@
 
     <!-- email intent -->
     <string name="send_email">Send an email</string>
+    <string name="tip_rate_empty">Please provide a tip rate</string>
+    <string name="tax_rate_empty">Please provide a tax rate</string>
 
 </resources>

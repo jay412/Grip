@@ -174,7 +174,7 @@ public class Receipt implements Parcelable{
         dest.writeString(mId);
     }
 
-    //TODO add date
+    //TODO add date?
     public String toString(){
         String details = "";
 

@@ -58,21 +58,34 @@ public class CalculateBillWidgetConfigureActivity extends Activity implements Bi
             mRadioButton = findViewById(selectedRadioButtonId);
             String tip = mRadioButton.getText().toString();
 
-            Receipt newReceipt = new Receipt("", mAdapter.getItems(), "", Integer.valueOf(mSharing.getText().toString()), Double.valueOf(tax), Double.valueOf(tip));
+            if (mTax.getText().toString().isEmpty()) {
+                Toast.makeText(CalculateBillWidgetConfigureActivity.this, R.string.tax_rate_empty, Toast.LENGTH_LONG).show();
+            } else if (tip.equals(null) || tip.isEmpty()) {
+                Toast.makeText(CalculateBillWidgetConfigureActivity.this, R.string.tip_rate_empty, Toast.LENGTH_LONG).show();
+            } else if (mAdapter.getItemCount() == 0) {
+                Toast.makeText(CalculateBillWidgetConfigureActivity.this, getString(R.string.create_item_error), Toast.LENGTH_LONG).show();
+            } else if (mSharing.getText().toString().isEmpty()) {
+                Toast.makeText(CalculateBillWidgetConfigureActivity.this, getString(R.string.people_sharing_empty), Toast.LENGTH_LONG).show();
+            } else if (mSharing.getText().toString().equals("0")) {
+                Toast.makeText(CalculateBillWidgetConfigureActivity.this, getString(R.string.people_sharing_valid_input), Toast.LENGTH_LONG).show();
+            } else {
 
-            //TODO check if bug when no radio button selected
-            //save tax and tip rates
-            savePrefs(context, mAppWidgetId, newReceipt);
+                Receipt newReceipt = new Receipt("", mAdapter.getItems(), "", Integer.valueOf(mSharing.getText().toString()), Double.valueOf(tax), Double.valueOf(tip));
 
-            // It is the responsibility of the configuration activity to update the app widget
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            CalculateBillWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
+                //TODO check if bug when no radio button selected, no items, no tax rate, no people sharing
+                //save tax and tip rates
+                savePrefs(context, mAppWidgetId, newReceipt);
 
-            // Make sure we pass back the original appWidgetId
-            Intent resultValue = new Intent();
-            resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-            setResult(RESULT_OK, resultValue);
-            finish();
+                // It is the responsibility of the configuration activity to update the app widget
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                CalculateBillWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
+
+                // Make sure we pass back the original appWidgetId
+                Intent resultValue = new Intent();
+                resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+                setResult(RESULT_OK, resultValue);
+                finish();
+            }
         }
     };
 
@@ -133,7 +146,6 @@ public class CalculateBillWidgetConfigureActivity extends Activity implements Bi
         }
     }
 
-    //TODO why value = 0
     static String loadPersonPayPref(Context context, int appWidgetId) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
         String personPay = prefs.getString("peoplePay", null);

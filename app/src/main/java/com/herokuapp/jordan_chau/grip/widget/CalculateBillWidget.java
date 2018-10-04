@@ -40,9 +40,9 @@ public class CalculateBillWidget extends AppWidgetProvider {
         views.setTextViewText(R.id.tv_widget_item_grand_total, "$" + grandtotal);
         views.setTextViewText(R.id.tv_widget_item_person_pay, "$" + personPay);
 
-        Intent emailIntent = CalculateTotalDialogFragment.setUpEmailIntent(emailCopy.toString());
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, Intent.createChooser(emailIntent, "Send an Email"), 0);
-        views.setOnClickPendingIntent(R.id.btn_widget_email, pendingIntent);
+        //Intent emailIntent = CalculateTotalDialogFragment.setUpEmailIntent(emailCopy.toString());
+        //PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, Intent.createChooser(emailIntent, "Send an Email"), 0);
+        //views.setOnClickPendingIntent(R.id.btn_widget_email, pendingIntent);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
