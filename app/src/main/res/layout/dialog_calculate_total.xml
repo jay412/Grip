@@ -17,7 +17,6 @@
         android:background="@color/colorPrimaryDark"/>
 
     <TextView
-        android:id="@+id/tv_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -35,10 +34,10 @@
         app:layout_constraintEnd_toEndOf="@+id/tv_dialog_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_dialog_title"
         android:textColor="@color/white"
-        android:labelFor="@string/label_for_receipt_input"/>
+        android:labelFor="@string/label_for_receipt_input"
+        android:inputType="" />
 
     <TextView
-        android:id="@+id/tv_subtotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -58,7 +57,6 @@
         app:layout_constraintTop_toBottomOf="@+id/et_item_label" />
 
     <TextView
-        android:id="@+id/tv_tax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -78,7 +76,6 @@
         android:text="@string/hint_total"/>
 
     <TextView
-        android:id="@+id/tv_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -98,7 +95,6 @@
         android:text="@string/hint_total"/>
 
     <TextView
-        android:id="@+id/tv_grand_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -118,7 +114,6 @@
         android:text="@string/hint_total"/>
 
     <TextView
-        android:id="@+id/tv_person_pay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

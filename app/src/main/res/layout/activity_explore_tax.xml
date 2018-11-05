@@ -18,7 +18,6 @@
                 android:background="?attr/colorPrimaryDark"/>
 
             <Button
-                android:id="@+id/btn_back"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@drawable/ic_baseline_arrow_back_24px"
@@ -38,7 +37,6 @@
         android:layout_gravity="center_horizontal">
 
         <TextView
-            android:id="@+id/tv_tax_rate_instruction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/enter_zip_code" />
@@ -54,7 +52,6 @@
             android:textColor="@color/white"/>
 
         <Button
-            android:id="@+id/btn_get_tax_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

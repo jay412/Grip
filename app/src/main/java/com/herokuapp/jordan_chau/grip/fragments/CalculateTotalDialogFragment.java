@@ -64,7 +64,7 @@ public class CalculateTotalDialogFragment extends DialogFragment {
 
         Bundle bundle = getArguments();
         if(bundle == null) {
-            Timber.d("bundle is null");
+            //Timber.d("bundle is null");
             return null;
         } else {
             final Receipt receipt = bundle.getParcelable("receipt");

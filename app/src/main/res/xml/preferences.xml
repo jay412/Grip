@@ -13,12 +13,13 @@
              android:defaultValue="@string/default_tax_rate"
              android:dialogLayout="@layout/pref_dialog_edittext_fix"/>
 
-         <PreferenceScreen
+         <!-- TODO: use another tax api or fix TaxJar -->
+         <!--<PreferenceScreen
              android:title="@string/explore_tax_rates">
 
              <intent android:action="launch.explore.activity" />
 
-         </PreferenceScreen>
+         </PreferenceScreen> -->
 
          <SwitchPreference
              android:key="@string/tip_switch_preference_key"

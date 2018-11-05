@@ -40,7 +40,7 @@ public class ReceiptCardAdapter extends RecyclerView.Adapter<ReceiptCardAdapter.
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 
-        View view = inflater.inflate(layoutForRecipeItem, parent, shouldAttachToParentImmediately);
+        View view = inflater.inflate(layoutForRecipeItem, parent, false);
 
         return new CardViewHolder(view);
     }

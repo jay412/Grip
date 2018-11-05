@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">Grip</string>
 
-    <string name="title_activity_navigation">NavigationActivity</string>
-
     <!-- history page -->
     <string name="title_history">History</string>
     <string name="delete">Delete</string>
@@ -45,19 +43,12 @@
     <string name="tip_switch_preference_key">parent_tip_switch_preference</string>
     <string name="tip_list_preference_key">tip_list_preference</string>
     <string name="device_stylish_preference_key">devices_stylish_preference</string>
-    <string name="share_stylish_preference_key">share_stylish_preference</string>
-    <string name="notifications_checkbox_preference_key">notifications_checkbox_preference</string>
     <string name="version_stylish_preference_key">version_stylish_preference</string>
     <string name="logout_preference_key">logout_preference</string>
 
     <string name="explore_tax_rates">Explore Tax Rates</string>
-    <string name="setting_account">Account</string>
     <string name="setting_security">Security</string>
     <string name="setting_device">Device</string>
-    <string name="setting_social">Social</string>
-    <string name="setting_share">Share this app</string>
-    <string name="setting_notifications">Notifications</string>
-    <string name="setting_enable_notifications">Enable or disable notifications</string>
     <string name="setting_about">About</string>
     <string name="version">Version</string>
     <string name="version_number">v1.0.0</string>
@@ -82,7 +73,7 @@
     <string name="zip_code_hint">14228</string>
     <string name="find_tax_rate">Find Tax Rate</string>
     <string name="copy_tax_rate_and_change_setting">Copy tax rate below into settings</string>
-    <string name="please_wait">Please wait ...</string>
+    <string name="please_wait">Please wait …</string>
     <string name="connection_error">Please check your internet connection and try again.</string>
 
     <!-- hint strings -->
@@ -109,10 +100,7 @@
     <!-- label for -->
     <string name="label_for_receipt_input">Receipt label input</string>
     <string name="label_for_sharing_input">Sharing label input</string>
-    <string name="label_for_price_input">Price label input</string>
-    <string name="label_for_quantity_input">Quantity label input</string>
     <string name="label_for_tax_input">Tax label input</string>
-    <string name="label_for_tip_input">Tip label input</string>
 
     <!-- snackbar -->
     <string name="create_item_error">Create some items before calculating total</string>

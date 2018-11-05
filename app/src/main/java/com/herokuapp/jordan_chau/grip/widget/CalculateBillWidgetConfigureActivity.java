@@ -60,7 +60,7 @@ public class CalculateBillWidgetConfigureActivity extends Activity implements Bi
 
             if (mTax.getText().toString().isEmpty()) {
                 Toast.makeText(CalculateBillWidgetConfigureActivity.this, R.string.tax_rate_empty, Toast.LENGTH_LONG).show();
-            } else if (tip.equals(null) || tip.isEmpty()) {
+            } else if (tip.isEmpty()) {
                 Toast.makeText(CalculateBillWidgetConfigureActivity.this, R.string.tip_rate_empty, Toast.LENGTH_LONG).show();
             } else if (mAdapter.getItemCount() == 0) {
                 Toast.makeText(CalculateBillWidgetConfigureActivity.this, getString(R.string.create_item_error), Toast.LENGTH_LONG).show();
