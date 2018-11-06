@@ -1,14 +1,11 @@
 package com.herokuapp.jordan_chau.grip.widget;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
-import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.herokuapp.jordan_chau.grip.R;
-import com.herokuapp.jordan_chau.grip.fragments.CalculateTotalDialogFragment;
 import com.herokuapp.jordan_chau.grip.model.Receipt;
 
 /**

@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.herokuapp.jordan_chau.grip.R;
 import com.herokuapp.jordan_chau.grip.model.Receipt;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ReceiptCardAdapter extends RecyclerView.Adapter<ReceiptCardAdapter.CardViewHolder>{

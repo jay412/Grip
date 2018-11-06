@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        //TODO: hide passwords
         config {
             keyAlias 'jay'
             keyPassword 'password'

@@ -7,9 +7,6 @@ import com.herokuapp.jordan_chau.grip.fragments.HistoryFragment;
 import com.herokuapp.jordan_chau.grip.fragments.NewBillFragment;
 import com.herokuapp.jordan_chau.grip.fragments.SettingsFragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class BottomNavBarAdapter extends SmartFragmentStatePagerAdapter {
     //private final List<Fragment> fragments = new ArrayList<>();
     private static int NUM_ITEMS = 3;

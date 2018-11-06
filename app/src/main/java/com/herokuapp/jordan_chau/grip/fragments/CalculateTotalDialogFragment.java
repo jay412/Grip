@@ -22,7 +22,6 @@ import com.herokuapp.jordan_chau.grip.model.Receipt;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 public class CalculateTotalDialogFragment extends DialogFragment {
     @BindView(R.id.tv_item_subtotal) TextView mSubtotal;
