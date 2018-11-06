@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "990822985855-6730rvvpat3gdjm6jfhaale8i6rai4mh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.herokuapp.jordan_chau.grip",
+            "certificate_hash": "692a386939201430548b3293e5bc8fd41a903f4a"
+          }
+        },
+        {
+          "client_id": "990822985855-lpbril2608glbh4j8pfmcgopjudaoh52.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.herokuapp.jordan_chau.grip",
+            "certificate_hash": "8b75db97dd74b0a8d2ed0a44c1d42a9f3596dd06"
+          }
+        },
+        {
           "client_id": "990822985855-0ni3f7ps1q8ov56k88j6vosr09035kld.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +45,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990822985855-0ni3f7ps1q8ov56k88j6vosr09035kld.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

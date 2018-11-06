@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Grip</string>
+    <string name="facebook_application_id" translatable="false">1553912308043676</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb1553912308043676</string>
 
     <!-- history page -->
     <string name="title_history">History</string>
