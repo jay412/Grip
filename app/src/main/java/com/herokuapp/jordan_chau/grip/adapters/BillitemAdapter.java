@@ -91,6 +91,11 @@ public class BillitemAdapter extends RecyclerView.Adapter<BillitemAdapter.ItemVi
         mNumberItems--;
     }
 
+    public void clearItems(){
+        mItems.clear();
+        mNumberItems = 0;
+    }
+
     public ArrayList<ReceiptItem> getItems() {
         return mItems;
     }

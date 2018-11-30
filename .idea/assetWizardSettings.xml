@@ -5,44 +5,22 @@
       <map>
         <entry key="imageWizard">
           <value>
+            <PersistentState />
+          </value>
+        </entry>
+        <entry key="vectorWizard">
+          <value>
             <PersistentState>
               <option name="children">
                 <map>
-                  <entry key="imageAssetPanel">
+                  <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
-                        <option name="children">
+                        <option name="values">
                           <map>
-                            <entry key="launcher">
-                              <value>
-                                <PersistentState>
-                                  <option name="children">
-                                    <map>
-                                      <entry key="foregroundImage">
-                                        <value>
-                                          <PersistentState>
-                                            <option name="values">
-                                              <map>
-                                                <entry key="scalingPercent" value="65" />
-                                              </map>
-                                            </option>
-                                          </PersistentState>
-                                        </value>
-                                      </entry>
-                                    </map>
-                                  </option>
-                                  <option name="values">
-                                    <map>
-                                      <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="1f2d3d" />
-                                      <entry key="backgroundLayerName" value="ic_grip_launcher_background" />
-                                      <entry key="foregroundImage" value="C:\Users\jchau3\Documents\Grip\images\icon 240x240.png" />
-                                      <entry key="foregroundLayerName" value="ic_grip_launcher_foreground" />
-                                    </map>
-                                  </option>
-                                </PersistentState>
-                              </value>
-                            </entry>
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_baseline_clear_24px" />
+                            <entry key="sourceFile" value="C:\Users\Jor\Desktop\Projects\Grip\images\icons\baseline-clear-24px.svg" />
                           </map>
                         </option>
                       </PersistentState>
@@ -51,11 +29,6 @@
                 </map>
               </option>
             </PersistentState>
-          </value>
-        </entry>
-        <entry key="vectorWizard">
-          <value>
-            <PersistentState />
           </value>
         </entry>
       </map>

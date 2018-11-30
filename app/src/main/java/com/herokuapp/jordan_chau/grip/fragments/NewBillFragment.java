@@ -1,5 +1,6 @@
 package com.herokuapp.jordan_chau.grip.fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -12,6 +13,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,6 +39,7 @@ import butterknife.ButterKnife;
 
 public class NewBillFragment extends Fragment implements NavigationActivity.CreateNewItemCallback, BillitemAdapter.BillItemClickListener{
     @BindView(R.id.fab_add_new_item) FloatingActionButton mAddItem;
+    @BindView(R.id.fab_clear_items) FloatingActionButton mClearItems;
     @BindView(R.id.rv_item_list) RecyclerView mItemList;
     @BindView(R.id.fab_take_picture) FloatingActionButton mTakePicture;
     @BindView(R.id.iv_receipt_image) ImageView mReceiptImage;
@@ -75,6 +78,34 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
         // Create an instance of the dialog fragment and show it
         DialogFragment dialog = new CreateNewItemDialogFragment();
         dialog.show(getActivity().getSupportFragmentManager(), "CreateNewItemDialogFragment");
+    }
+
+    public void showClearDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.clear_warning)
+                .setTitle(R.string.clear_bill);
+
+        builder.setPositiveButton(R.string.clear, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                mAdapter.clearItems();
+                mAdapter.notifyDataSetChanged();
+
+                mReceiptImage.setImageResource(R.drawable.ic_img_placeholder);
+
+                mSharing.setText(getResources().getString(R.string.num_ppl_sharing_default_value));
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+                dialog.cancel();
+            }
+        });
+
+        // Create the AlertDialog
+        AlertDialog dialog = builder.create();
+
+        dialog.show();
     }
 
     public void showCalculateTotalDialog() {
@@ -141,6 +172,13 @@ public class NewBillFragment extends Fragment implements NavigationActivity.Crea
             @Override
             public void onClick(View v) {
                 showCreateItemDialog();
+            }
+        });
+
+        mClearItems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showClearDialog();
             }
         });
 

@@ -30,6 +30,10 @@
     <string name="email">Email</string>
     <string name="close">Close</string>
 
+    <string name="clear_bill">Clear bill details?</string>
+    <string name="clear_warning">You\'ll lose all items and photo!</string>
+    <string name="clear">Clear</string>
+
     <!-- settings page -->
     <string name="title_settings">Settings</string>
     <string name="setting_bill_calculation">Bill Calculation</string>
